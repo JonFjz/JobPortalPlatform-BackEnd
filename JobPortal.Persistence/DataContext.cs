@@ -1,16 +1,15 @@
-﻿using JobPortal.Application.Interfaces;
-using JobPortal.Domain;
+﻿using JobPortal.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 
 namespace JobPortal.Persistence
 {
-    public class DatabaseService: DbContext, IDatabaseService
+    public class DataContext: DbContext
     {
         private readonly IConfiguration _configuration;
 
-        public DatabaseService(IConfiguration configuration)
+        public DataContext(IConfiguration configuration)
         {
             _configuration = configuration;
 

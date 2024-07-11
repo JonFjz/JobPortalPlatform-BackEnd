@@ -2,13 +2,13 @@
 using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class JobPostingsController : ControllerBase
+    [Authorize]
+    public class JobPostingsController : BaseApiController
     {
         private readonly IMediator _mediator;
         public JobPostingsController(IMediator mediator)

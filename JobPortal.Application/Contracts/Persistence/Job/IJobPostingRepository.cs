@@ -1,5 +1,5 @@
 ﻿using JobPortal.Application.Interfaces;
-using JobPortal.Domain;
+using JobPortal.Domain.Entities;
 
 namespace JobPortal.Application.Contracts.Persistence.Job
 {

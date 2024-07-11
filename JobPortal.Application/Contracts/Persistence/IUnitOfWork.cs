@@ -1,5 +1,4 @@
-﻿using JobPortal.Application.Contracts.Persistence.Job;
-using JobPortal.Application.Interfaces;
+﻿using JobPortal.Application.Interfaces;
 
 namespace JobPortal.Application.Contracts.Persistence
 {
