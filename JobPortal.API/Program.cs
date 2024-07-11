@@ -1,8 +1,6 @@
-
-using JobPortal.Application.Interfaces;
-using JobPortal.Persistence;
-using Microsoft.EntityFrameworkCore;
 using System.Runtime.Loader;
+using JobPortal.Application;
+using JobPortal.Persistence;
 
 
 namespace JobPortal.API
@@ -23,6 +21,14 @@ namespace JobPortal.API
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container.
 
+
+
+
+            builder.Services.AddApplicationServices();
+            builder.Services.AddPersistenceServices(builder.Configuration);
+
+
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -35,9 +41,8 @@ namespace JobPortal.API
                 .AddClasses()
                 .AsMatchingInterface());
 
-            builder.Services.AddDbContext<DatabaseService>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+          
 
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

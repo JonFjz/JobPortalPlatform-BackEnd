@@ -1,12 +1,8 @@
 ﻿using JobPortal.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace JobPortal.Persistence
+namespace JobPortal.Persistence.Repositories
 {
     public class JppRepository<Tentity> : IJppRepository<Tentity> where Tentity : class
     {
@@ -17,9 +13,10 @@ namespace JobPortal.Persistence
             _dbContext = dbContext;
         }
 
-        public void Create(Tentity entity)
+        public async Task CreateAsync(Tentity entity)
         {
-            _dbContext.Set<Tentity>().Add(entity);
+            await _dbContext.Set<Tentity>().AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public void CreateRange(List<Tentity> entities)
@@ -37,12 +34,11 @@ namespace JobPortal.Persistence
             _dbContext.Set<Tentity>().RemoveRange(entities);
         }
 
-        public IQueryable<Tentity> GetAll()
+        public async Task<IReadOnlyList<Tentity>> GetAllAsync()
         {
-            var result = _dbContext.Set<Tentity>();
-
-            return result;
+            return await _dbContext.Set<Tentity>().ToListAsync();
         }
+
 
         public IQueryable<Tentity> GetByCondition(Expression<Func<Tentity, bool>> expression)
         {
