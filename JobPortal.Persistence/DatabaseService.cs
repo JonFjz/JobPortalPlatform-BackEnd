@@ -1,4 +1,5 @@
 ﻿using JobPortal.Application.Interfaces;
+using JobPortal.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -15,8 +16,9 @@ namespace JobPortal.Persistence
 
             Database.EnsureCreated();
         }
-        //DbSet
-       
+
+        public DbSet<JobPosting> JobPostings { get; set; }
+
         public void Save()
         {
             this.SaveChanges();
