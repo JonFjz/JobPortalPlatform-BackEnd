@@ -1,19 +1,17 @@
 ﻿using JobPortal.Application.Contracts.Persistence;
-using JobPortal.Application.Contracts.Persistence.Job;
 using JobPortal.Application.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System.Collections;
 
 namespace JobPortal.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DatabaseService _dbContext;
+        private readonly DataContext _dbContext;
 
         private Hashtable _repositories;
 
 
-        public UnitOfWork(DatabaseService dbContext)
+        public UnitOfWork(DataContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -6,9 +6,9 @@ namespace JobPortal.Persistence.Repositories
 {
     public class JppRepository<Tentity> : IJppRepository<Tentity> where Tentity : class
     {
-        private readonly DatabaseService _dbContext;
+        private readonly DbContext _dbContext;
 
-        public JppRepository(DatabaseService dbContext)
+        public JppRepository(DbContext dbContext)
         {
             _dbContext = dbContext;
         }

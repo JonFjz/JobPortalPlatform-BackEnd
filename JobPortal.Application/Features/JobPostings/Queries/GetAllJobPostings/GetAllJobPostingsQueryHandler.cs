@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using JobPortal.Application.Contracts.Persistence;
-using JobPortal.Application.Contracts.Persistence.Job;
 using JobPortal.Application.Features.JobPostings.Dtos;
-using JobPortal.Domain;
+using JobPortal.Domain.Entities;
 using MediatR;
 
 namespace JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings

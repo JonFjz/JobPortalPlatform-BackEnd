@@ -1,24 +1,26 @@
 ﻿using JobPortal.Application.Contracts.Persistence;
-using JobPortal.Application.Contracts.Persistence.Job;
-using JobPortal.Application.Interfaces;
 using JobPortal.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace JobPortal.Persistence
+namespace JobPortal.Persistence.Extensions
 {
-    public static class PersistenceServiceRegistration
+    public static class PersistenceExtensions
     {
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services,
         IConfiguration configuration)
         {
-            services.AddDbContext<DatabaseService>(options => 
+            services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<IdentityContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
-    }        
+    }
 }
