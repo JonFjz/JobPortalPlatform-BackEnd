@@ -1,4 +1,5 @@
-﻿using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
+﻿using JobPortal.API.Controllers.Base;
+using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
 using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings;
 using MediatR;
@@ -17,6 +18,7 @@ namespace JobPortal.API.Controllers
         }
 
 
+        [Authorize(Policy = "JobSeeker")]
         [HttpPost]
         public async Task<ActionResult> Post(CreateJobPostingCommand command)
         {
@@ -25,14 +27,12 @@ namespace JobPortal.API.Controllers
         }
 
 
+        [Authorize(Policy = "Employer")]
         [HttpGet]
         public async Task<ActionResult<List<JobPostingDto>>> Get()
         {
             var jobPostings = await _mediator.Send(new GetAllJobPostingsQuery());
             return Ok(jobPostings);
         }
-
-    
-
     }
 }

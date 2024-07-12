@@ -1,14 +1,14 @@
-using Microsoft.EntityFrameworkCore;
 using JobPortal.API.Extensions;
 using JobPortal.Application.Extensions;
-using JobPortal.Domain.Entities.User;
 using JobPortal.Infrastructure.Authentication.Services;
-using JobPortal.Persistence;
-using JobPortal.Persistence.Configurations;
 using JobPortal.Persistence.Extensions;
-using Microsoft.AspNetCore.Identity;
 using JobPortal.Application.Contracts.Infrastructure;
 using System.Runtime.Loader;
+using JobPortal.Application.Helpers.Models.Auth0;
+using JobPortal.Infrastructure.Network;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace JobPortal.API
 {
@@ -25,14 +25,47 @@ namespace JobPortal.API
 
             var builder = WebApplication.CreateBuilder(args);
 
+
+            builder.Services.AddHttpClient();
+
             // Add services to the container.
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
-            builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddPresentation(builder.Configuration);
 
-            builder.Services.AddTransient<ITokenService, TokenService>();
-            builder.Services.AddTransient<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.Configure<Auth0Settings>(builder.Configuration.GetSection("Auth0"));
+            builder.Services.AddScoped<IClaimsPrincipalAccessor, ClaimsPrincipalAccessor>();
+            builder.Services.AddScoped<IAuth0Service, Auth0Service>();
+
+
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = builder.Configuration["Auth0:Authority"];
+                options.Audience = builder.Configuration["Auth0:Audience"];
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = ClaimTypes.NameIdentifier
+                };
+            });
+
+
+
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("JobSeeker", policy =>
+                    policy.RequireClaim("https://dev-2si34b7jockzxhln/role", "JobSeeker"));
+                options.AddPolicy("Employer", policy =>
+                    policy.RequireClaim("https://dev-2si34b7jockzxhln/role", "Employer"));
+            });
+
+
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -50,27 +83,6 @@ namespace JobPortal.API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
-
-            using var scope = app.Services.CreateScope();
-            var services = scope.ServiceProvider;
-
-            try
-            {
-                var context = services.GetRequiredService<IdentityContext>();
-                var userManager = services.GetRequiredService<UserManager<User>>();
-                var roleManager = services.GetRequiredService<RoleManager<Role>>();
-
-                await context.Database.MigrateAsync();
-                await RoleConfiguration.SeedRolesAndAdmin(userManager, roleManager);
-
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogInformation("Database migration and seeding completed successfully.");
-            }
-            catch (Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred during migration or seeding");
             }
 
             app.UseHttpsRedirection();

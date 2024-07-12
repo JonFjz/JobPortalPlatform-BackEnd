@@ -23,5 +23,9 @@
     <ProjectReference Include="..\JobPortal.Domain\JobPortal.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+
 </Project>
  
