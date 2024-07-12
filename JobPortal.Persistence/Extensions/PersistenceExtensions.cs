@@ -14,10 +14,6 @@ namespace JobPortal.Persistence.Extensions
             services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<IdentityContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace JobPortal.API.Controllers
+namespace JobPortal.API.Controllers.Base
 {
     [ApiController]
     [Route("api/[controller]")]
