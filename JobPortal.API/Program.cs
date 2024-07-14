@@ -35,6 +35,7 @@ namespace JobPortal.API
             builder.Services.AddPresentation(builder.Configuration);
             builder.Services.AddCacheServices(builder.Configuration);
 
+            builder.Services.AddHttpClient();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.Configure<Auth0Settings>(builder.Configuration.GetSection("Auth0"));
             builder.Services.AddScoped<IClaimsPrincipalAccessor, ClaimsPrincipalAccessor>();
