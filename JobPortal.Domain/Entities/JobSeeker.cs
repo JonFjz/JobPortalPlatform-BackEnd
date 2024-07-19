@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JobPortal.Domain.Entities
+﻿namespace JobPortal.Domain.Entities
 {
     public class JobSeeker
     {
@@ -15,5 +9,9 @@ namespace JobPortal.Domain.Entities
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        public ICollection<Skill> Skills { get; set; }
+        public ICollection<WorkExperience> Experiences { get; set; }
+        public ICollection<Education> Educations { get; set; }
     }
 }

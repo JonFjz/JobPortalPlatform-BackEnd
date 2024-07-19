@@ -1,4 +1,5 @@
 ﻿using JobPortal.Application.Contracts.Infrastructure;
+using JobPortal.Application.Features.JobSeeker.Dtos;
 using JobPortal.Application.Features.Users.Dtos;
 using JobPortal.Application.Helpers.Models.Auth0;
 using Microsoft.Extensions.Options;
@@ -39,7 +40,9 @@ namespace JobPortal.Infrastructure.Authentication.Services
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
             var userInfo = JsonDocument.Parse(jsonResponse);
-            return userInfo.RootElement.GetProperty("_id").GetString();
+
+            string userId = userInfo.RootElement.GetProperty("_id").GetString();
+            return $"auth0|{userId}";
         }
 
         public async Task<string> SignupJobSeekerAsync(JobSeekerRegistrationDto request, string userType)

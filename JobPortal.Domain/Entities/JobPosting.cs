@@ -1,7 +1,7 @@
 ﻿namespace JobPortal.Domain.Entities
 {
     public class JobPosting
-    {//test
+    {
         public int Id { get; set; }
         public string Title { get; set; }
         public DateTime DatePosted { get; set; }
