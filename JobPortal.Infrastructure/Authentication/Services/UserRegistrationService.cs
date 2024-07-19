@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
+using JobPortal.Application.Features.Employers.Dtos;
 using JobPortal.Application.Features.JobSeeker.Dtos;
-using JobPortal.Application.Features.Users.Dtos;
 using JobPortal.Domain.Entities;
 
 namespace JobPortal.Infrastructure.Authentication.Services

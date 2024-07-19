@@ -1,5 +1,5 @@
-﻿using JobPortal.Application.Features.JobSeeker.Dtos;
-using JobPortal.Application.Features.Users.Dtos;
+﻿using JobPortal.Application.Features.Employers.Dtos;
+using JobPortal.Application.Features.JobSeeker.Dtos;
 using JobPortal.Application.Helpers.Models.Auth0;
 
 namespace JobPortal.Application.Contracts.Infrastructure

@@ -1,5 +1,4 @@
 ﻿using JobPortal.API.Controllers.Base;
-using JobPortal.Application.Features.Educations.Commands.UpdateEducation;
 using JobPortal.Application.Features.WorkExperiences.Commands.CreateWorkExperience;
 using JobPortal.Application.Features.WorkExperiences.Commands.DeleteWorkExperience;
 using JobPortal.Application.Features.WorkExperiences.Commands.UpdateWorkExperience;

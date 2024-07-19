@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
-using JobPortal.Application.Features.JobSeeker.Dtos;
+using JobPortal.Application.Features.Employers.Dtos;
 using MediatR;
 
-namespace JobPortal.Application.Features.JobSeeker.Queries.GetJobSeekerDetail
+namespace JobPortal.Application.Features.Employers.Queries.GetEmployerProfile
 {
-    public class GetEmployerProfileQueryHandler : IRequestHandler<GetJobEmployerProfileQuery, JobSeekerDto>
+    public class GetEmployerProfileQueryHandler : IRequestHandler<GetEmployerProfileQuery, EmployerDto>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IClaimsPrincipalAccessor _claimsPrincipalAccessor;
@@ -19,15 +19,14 @@ namespace JobPortal.Application.Features.JobSeeker.Queries.GetJobSeekerDetail
             _mapper = mapper;
         }
 
-        public async Task<JobSeekerDto> Handle(GetJobEmployerProfileQuery request, CancellationToken cancellationToken)
+        public async Task<EmployerDto> Handle(GetEmployerProfileQuery request, CancellationToken cancellationToken)
         {
 
-            var jobSeekerToReturn = await _claimsPrincipalAccessor.GetCurrentJobSeekerAsync();
+            var employerToReturn = await _claimsPrincipalAccessor.GetCurrentEmployerAsync();
 
-            var userDto = _mapper.Map<JobSeekerDto>(jobSeekerToReturn);
+            var userDto = _mapper.Map<EmployerDto>(employerToReturn);
             return userDto;
 
         }
-
     }
 }

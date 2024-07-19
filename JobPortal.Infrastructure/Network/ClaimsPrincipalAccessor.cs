@@ -20,15 +20,19 @@ namespace JobPortal.Infrastructure.Network
         public ClaimsPrincipal ClaimsPrincipal => _httpContextAccessor.HttpContext?.User;
 
 
-        public async Task<Domain.Entities.JobSeeker> GetCurrentJobSeekerAsync()
+        private string GetUserId()
         {
             var userId = ClaimsPrincipal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
             if (userId == null)
             {
                 throw new UnauthorizedAccessException("User is not logged in.");
             }
+            return userId;
+        }
 
+        public async Task<JobSeeker> GetCurrentJobSeekerAsync()
+        {
+            var userId = GetUserId();
             var jobSeeker = (await _unitOfWork.Repository<JobSeeker>()
                 .GetByConditionAsync(js => js.Auth0Id == userId))
                 .FirstOrDefault();
@@ -39,6 +43,21 @@ namespace JobPortal.Infrastructure.Network
             }
 
             return jobSeeker;
+        }
+
+        public async Task<Employer> GetCurrentEmployerAsync()
+        {
+            var userId = GetUserId();
+            var employer = (await _unitOfWork.Repository<Employer>()
+                .GetByConditionAsync(e => e.Auth0Id == userId))
+                .FirstOrDefault();
+
+            if (employer == null)
+            {
+                throw new KeyNotFoundException("Employer not found.");
+            }
+
+            return employer;
         }
     }
 }

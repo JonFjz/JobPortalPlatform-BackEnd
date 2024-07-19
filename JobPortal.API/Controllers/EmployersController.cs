@@ -1,5 +1,6 @@
 ﻿using JobPortal.API.Controllers.Base;
-using JobPortal.Application.Features.JobSeeker.Commands.UpdateJobSeeker;
+using JobPortal.Application.Features.Employers.Commands.UpdateEmployerProfile;
+using JobPortal.Application.Features.Employers.Queries.GetEmployerProfile;
 using JobPortal.Application.Features.JobSeeker.Queries.GetJobSeekerDetail;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,27 +9,28 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobPortal.API.Controllers
 {
     [Authorize]
-    public class JobSeekersController : BaseApiController
+    public class EmployersController : BaseApiController
     {
+
         private readonly IMediator _mediator;
 
 
-        public JobSeekersController(IMediator mediator)
+        public EmployersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
 
-        [HttpGet("details")]
+        [HttpGet("user-profile")]
         public async Task<IActionResult> GetProfile()
         {
-            var query = new GetJobEmployerProfileQuery();
+            var query = new GetEmployerProfileQuery();
             var userDetails = await _mediator.Send(query);
             return Ok(userDetails);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateProfile([FromBody] UpdateJobSeekerProfileCommand command)
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateEmployerProfileCommand command)
         {
             await _mediator.Send(command);
             return NoContent();

@@ -1,6 +1,6 @@
 ﻿using JobPortal.Application.Contracts.Infrastructure;
+using JobPortal.Application.Features.Employers.Dtos;
 using JobPortal.Application.Features.JobSeeker.Dtos;
-using JobPortal.Application.Features.Users.Dtos;
 using JobPortal.Application.Helpers.Models.Auth0;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;

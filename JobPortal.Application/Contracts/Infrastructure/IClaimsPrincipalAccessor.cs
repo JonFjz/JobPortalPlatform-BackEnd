@@ -8,6 +8,7 @@ namespace JobPortal.Application.Contracts.Infrastructure
         ClaimsPrincipal ClaimsPrincipal { get; }
 
         Task<JobSeeker> GetCurrentJobSeekerAsync();
+        Task<Employer> GetCurrentEmployerAsync();
 
     }
 }

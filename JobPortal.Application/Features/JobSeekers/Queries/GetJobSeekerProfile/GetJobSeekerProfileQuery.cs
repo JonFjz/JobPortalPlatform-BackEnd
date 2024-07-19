@@ -3,5 +3,5 @@ using MediatR;
 
 namespace JobPortal.Application.Features.JobSeeker.Queries.GetJobSeekerDetail
 {
-    public class GetJobSeekerProfileQuery : IRequest<JobSeekerDto>{}
+    public class GetJobEmployerProfileQuery : IRequest<JobSeekerDto>{}
 }
