@@ -39,15 +39,14 @@ namespace JobPortal.Persistence.Repositories
             return await _dbContext.Set<Tentity>().ToListAsync();
         }
 
-
-        public IQueryable<Tentity> GetByCondition(Expression<Func<Tentity, bool>> expression)
+        public async Task<List<Tentity>> GetByConditionAsync(Expression<Func<Tentity, bool>> expression)
         {
-            return _dbContext.Set<Tentity>().Where(expression);
+            return await Task.FromResult(_dbContext.Set<Tentity>().Where(expression).ToList());
         }
 
-        public IQueryable<Tentity> GetById(Expression<Func<Tentity, bool>> expression)
+        public async Task<Tentity> GetByIdAsync(Expression<Func<Tentity, bool>> expression)
         {
-            return _dbContext.Set<Tentity>().Where(expression);
+            return await _dbContext.Set<Tentity>().FirstOrDefaultAsync(expression);
         }
 
         public async Task SaveChangesAsync()
@@ -55,10 +54,12 @@ namespace JobPortal.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public void Update(Tentity entity)
+        public async Task UpdateAsync(Tentity entity)
         {
             _dbContext.Set<Tentity>().Update(entity);
+            await _dbContext.SaveChangesAsync();
         }
+
 
         public void UpdateRange(List<Tentity> entities)
         {

@@ -2,6 +2,7 @@ using JobPortal.API.Extensions;
 using JobPortal.Application.Extensions;
 using JobPortal.Infrastructure.Authentication.Services;
 using JobPortal.Persistence.Extensions;
+using JobPortal.Infrastructure.Extensions;
 using JobPortal.Application.Contracts.Infrastructure;
 using System.Runtime.Loader;
 using JobPortal.Application.Helpers.Models.Auth0;
@@ -32,6 +33,7 @@ namespace JobPortal.API
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddPresentation(builder.Configuration);
+            builder.Services.AddCacheServices(builder.Configuration);
 
             builder.Services.AddHttpClient();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

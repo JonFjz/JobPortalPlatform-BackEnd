@@ -17,8 +17,15 @@ namespace JobPortal.Persistence
         }
 
         public DbSet<JobSeeker> JobSeekers { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<WorkExperience> WorkExperiences { get; set; }
+        public DbSet<Education> Educations { get; set; }
+
+
         public DbSet<Employer> Employers { get; set; }
         public DbSet<JobPosting> JobPostings { get; set; }
+
+
 
         public void Save()
         {

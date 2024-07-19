@@ -1,5 +1,6 @@
 ﻿using JobPortal.API.Controllers.Base;
 using JobPortal.Application.Contracts.Infrastructure;
+using JobPortal.Application.Features.JobSeeker.Dtos;
 using JobPortal.Application.Features.Users.Dtos;
 using JobPortal.Application.Helpers.Models.Auth0;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,12 @@ namespace JobPortal.API.Controllers
             var result = await _auth0Service.GetTokenAsync(tokenRequest);
             return Ok(result);
         }
+
+
+
+
+
+
 
     }
 }

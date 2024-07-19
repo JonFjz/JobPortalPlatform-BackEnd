@@ -23,7 +23,7 @@ namespace JobPortal.API.Controllers
         public async Task<ActionResult> Post(CreateJobPostingCommand command)
         {
             var response = await _mediator.Send(command);
-            return CreatedAtAction(nameof(Get), new { id = response });
+            return CreatedAtAction(nameof(Post), new { id = response });
         }
 
 
