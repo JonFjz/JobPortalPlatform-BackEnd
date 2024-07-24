@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Authorize]
     public class JobPostingsController : BaseApiController
     {
         private readonly IMediator _mediator;
@@ -20,10 +19,10 @@ namespace JobPortal.API.Controllers
 
         [Authorize(Policy = "Employer")]
         [HttpPost]
-        public async Task<ActionResult> Post(CreateJobPostingCommand command)
+        public async Task<ActionResult> Create(CreateJobPostingCommand command)
         {
             var response = await _mediator.Send(command);
-            return CreatedAtAction(nameof(Post), new { id = response });
+            return CreatedAtAction(nameof(Create), new { id = response });
         }
 
         [Authorize(Policy = "JobSeeker")]

@@ -41,7 +41,7 @@ namespace JobPortal.API.Controllers
         }
 
         [HttpGet("download")]
-        public async Task<IActionResult> DownloadResume()
+        public async Task<IActionResult> Download()
         {
             var result = await _mediator.Send(new DownloadResumeQuery());
             return File(result.FileData, "application/octet-stream", result.FileName);

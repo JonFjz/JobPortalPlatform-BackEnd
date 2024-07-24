@@ -20,7 +20,7 @@ namespace JobPortal.API.Controllers
         }
 
 
-        [HttpGet("user-profile")]
+        [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
             var query = new GetEmployerProfileQuery();
@@ -28,7 +28,7 @@ namespace JobPortal.API.Controllers
             return Ok(userDetails);
         }
 
-        [HttpPut]
+        [HttpPut("profile")]
         public async Task<IActionResult> UpdateProfile([FromBody] UpdateEmployerProfileCommand command)
         {
             await _mediator.Send(command);

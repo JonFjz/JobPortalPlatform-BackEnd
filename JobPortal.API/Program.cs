@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Runtime.Loader;
-using JobPortal.Infrastructure.MessageQueue;
 using JobPortal.Worker;
 using MassTransit;
+using JobPortal.Application.Helpers.Models.Email;
+using JobPortal.Infrastructure.Email;
+using Stripe;
 
 namespace JobPortal.API
 {
@@ -38,15 +40,14 @@ namespace JobPortal.API
             builder.Services.AddCacheServices(builder.Configuration);
 
             builder.Services.Configure<Auth0Settings>(builder.Configuration.GetSection("Auth0"));
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped<IClaimsPrincipalAccessor, ClaimsPrincipalAccessor>();
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IAuth0Service, Auth0Service>();
             builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
-
-
-
+            builder.Services.AddTransient<IEmailService, EmailService>();
 
             builder.Services.AddMassTransit(x =>
             {

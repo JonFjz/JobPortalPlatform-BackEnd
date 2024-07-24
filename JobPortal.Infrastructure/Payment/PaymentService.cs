@@ -1,9 +1,7 @@
 ﻿using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
-using JobPortal.Application.Helpers.Models.Messaging;
 using JobPortal.Domain.Entities;
 using JobPortal.Domain.Enums;
-using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 

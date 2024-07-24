@@ -18,6 +18,7 @@ namespace JobPortal.Infrastructure.Authentication.Services
             _mapper = mapper;
         }
 
+
         public async Task SaveJobSeekerAsync(JobSeekerRegistrationDto request, string auth0Id)
         {
             var jobSeeker = _mapper.Map<JobSeeker>(request);
