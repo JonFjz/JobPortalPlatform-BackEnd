@@ -23,7 +23,6 @@ namespace JobPortal.Persistence
         public DbSet<Education> Educations { get; set; }
         public DbSet<Resume> Resumes { get; set; }
 
-
         public DbSet<Employer> Employers { get; set; }
         public DbSet<JobPosting> JobPostings { get; set; }
 

@@ -13,11 +13,22 @@ namespace JobPortal.Domain.Entities
         public WorkType WorkType { get; set; } 
         public WorkLevel WorkLevel { get; set; }
         public string NotificationEmail { get; set; } //email to send updates when a job seeker applies
-        public bool IsPremium { get; set; } = false;
+
+        //premium job posting related fields
+        public PaymentStatus Status { get; set; } = PaymentStatus.Pending;
+        public DateTime? UpgradedAt { get; set; }
+        public DateTime? PremiumUntil { get; set; }
+        public decimal StandardPrice { get; set; }
+
+        // Stripe payment-related fields
+        public string ClientSecret { get; set; }
+        public string PaymentIntentId { get; set; }
 
 
         public int EmployerId { get; set; }
         public Employer Employer { get; set; }
+
+
 
     }
 }

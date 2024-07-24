@@ -8,9 +8,7 @@ namespace JobPortal.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<JobPosting> builder)
         {
-            builder
-                .Property(j => j.IsPremium)
-                .HasDefaultValue(false);
+
         }
     }
 }

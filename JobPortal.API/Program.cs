@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Runtime.Loader;
+using JobPortal.Infrastructure.Payment;
+using JobPortal.Application.Helpers.Models.Stripe;
+using Stripe;
 
 namespace JobPortal.API
 {
@@ -33,11 +36,15 @@ namespace JobPortal.API
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddPresentation(builder.Configuration);
             builder.Services.AddCacheServices(builder.Configuration);
-            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             builder.Services.Configure<Auth0Settings>(builder.Configuration.GetSection("Auth0"));
+
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped<IClaimsPrincipalAccessor, ClaimsPrincipalAccessor>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IAuth0Service, Auth0Service>();
             builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
+
 
             builder.Services.AddAuthentication(options =>
             {
