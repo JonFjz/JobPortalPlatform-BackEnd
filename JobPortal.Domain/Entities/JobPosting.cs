@@ -15,7 +15,8 @@ namespace JobPortal.Domain.Entities
         public string NotificationEmail { get; set; } //email to send updates when a job seeker applies
 
         //premium job posting related fields
-        public PaymentStatus Status { get; set; } = PaymentStatus.Pending;
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
+        public SubscriptionStatus SubscriptionStatus { get; set; } = SubscriptionStatus.Pending;
         public DateTime? UpgradedAt { get; set; }
         public DateTime? PremiumUntil { get; set; }
         public decimal StandardPrice { get; set; }

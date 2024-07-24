@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Runtime.Loader;
-using JobPortal.Infrastructure.Payment;
-using JobPortal.Application.Helpers.Models.Stripe;
-using Stripe;
+using JobPortal.Infrastructure.MessageQueue;
+using JobPortal.Worker;
+using MassTransit;
 
 namespace JobPortal.API
 {
@@ -44,6 +44,23 @@ namespace JobPortal.API
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IAuth0Service, Auth0Service>();
             builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
+
+
+
+
+            builder.Services.AddMassTransit(x =>
+            {
+                x.AddConsumer<JobPostingExpiredConsumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq://localhost");
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+
+
+
+            builder.Services.AddHostedService<JobPostingExpiryService>();
 
 
             builder.Services.AddAuthentication(options =>

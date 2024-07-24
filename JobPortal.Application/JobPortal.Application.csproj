@@ -10,15 +10,16 @@
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
 	  <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
 	  <PackageReference Include="Stripe.net" Version="45.4.0" />
-	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JobPortal.Common\JobPortal.Common.csproj" />
     <ProjectReference Include="..\JobPortal.Domain\JobPortal.Domain.csproj" />
   </ItemGroup>
 

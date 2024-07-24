@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Domain", "JobPortal.Domain\JobPortal.Domain.csproj", "{BB50D355-F71E-4329-8E96-C2E4730E8C31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Domain", "JobPortal.Domain\JobPortal.Domain.csproj", "{BB50D355-F71E-4329-8E96-C2E4730E8C31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Application", "JobPortal.Application\JobPortal.Application.csproj", "{F26672A6-BDFD-4923-835A-495D57B71D65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Application", "JobPortal.Application\JobPortal.Application.csproj", "{F26672A6-BDFD-4923-835A-495D57B71D65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Persistence", "JobPortal.Persistence\JobPortal.Persistence.csproj", "{89365E05-286C-45BA-A879-DE77C4134D1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Persistence", "JobPortal.Persistence\JobPortal.Persistence.csproj", "{89365E05-286C-45BA-A879-DE77C4134D1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Infrastructure", "JobPortal.Infrastructure\JobPortal.Infrastructure.csproj", "{785FC8DF-8A06-462E-A768-2E70866914ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Infrastructure", "JobPortal.Infrastructure\JobPortal.Infrastructure.csproj", "{785FC8DF-8A06-462E-A768-2E70866914ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.API", "JobPortal.API\JobPortal.API.csproj", "{2A95DBA0-0D17-4085-A330-2C6EDAF84262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.API", "JobPortal.API\JobPortal.API.csproj", "{2A95DBA0-0D17-4085-A330-2C6EDAF84262}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Common", "JobPortal.Common\JobPortal.Common.csproj", "{EF84A050-9849-47D8-8BD6-636272E3C346}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Common", "JobPortal.Common\JobPortal.Common.csproj", "{EF84A050-9849-47D8-8BD6-636272E3C346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Worker", "JobPortal.Worker\JobPortal.Worker.csproj", "{9B7DCD50-59A1-46B6-98F3-CF768A9459D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{EF84A050-9849-47D8-8BD6-636272E3C346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF84A050-9849-47D8-8BD6-636272E3C346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF84A050-9849-47D8-8BD6-636272E3C346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B7DCD50-59A1-46B6-98F3-CF768A9459D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B7DCD50-59A1-46B6-98F3-CF768A9459D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B7DCD50-59A1-46B6-98F3-CF768A9459D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B7DCD50-59A1-46B6-98F3-CF768A9459D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
