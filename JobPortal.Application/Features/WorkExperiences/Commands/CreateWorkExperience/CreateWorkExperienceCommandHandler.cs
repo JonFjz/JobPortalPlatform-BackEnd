@@ -23,12 +23,8 @@ namespace JobPortal.Application.Features.WorkExperiences.Commands.CreateWorkExpe
         {
             var jobSeeker = await _claimsPrincipalAccessor.GetCurrentJobSeekerAsync();
 
-            var workExperienceToCreate = new WorkExperience
-            {
-                JobTitle = request.JobTitle,
-                CompanyName = request.CompanyName,
-                JobSeekerId = jobSeeker.Id
-            };
+            var workExperienceToCreate = _mapper.Map<WorkExperience>(request);
+            workExperienceToCreate.JobSeekerId = jobSeeker.Id;  
 
             await _unitOfWork.Repository<WorkExperience>().CreateAsync(workExperienceToCreate);
             _unitOfWork.Complete();

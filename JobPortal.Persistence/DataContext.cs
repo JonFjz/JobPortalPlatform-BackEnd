@@ -1,4 +1,5 @@
 ﻿using JobPortal.Domain.Entities;
+using JobPortal.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -43,7 +44,9 @@ namespace JobPortal.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
+            new JobPostingConfiguration().Configure(builder.Entity<JobPosting>());
+            new JobSeekerConfiguration().Configure(builder.Entity<JobSeeker>());
+
         }
     }
 }

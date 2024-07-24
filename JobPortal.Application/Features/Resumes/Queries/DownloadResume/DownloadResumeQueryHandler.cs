@@ -1,14 +1,8 @@
 ﻿using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Application.Features.Resumes.Dtos;
-using JobPortal.Application.Features.Resumes.Queries.GetResume;
 using JobPortal.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobPortal.Application.Features.Resumes.Queries.DownloadResume
 {

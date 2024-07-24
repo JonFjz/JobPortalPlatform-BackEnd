@@ -12,6 +12,8 @@ namespace JobPortal.Persistence.Configurations
                 .HasOne(js => js.Resume)
                 .WithOne(r => r.JobSeeker)
                 .HasForeignKey<Resume>(r => r.JobSeekerId);
+
+          
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace JobPortal.Domain.Entities
+﻿using JobPortal.Domain.Enums;
+
+namespace JobPortal.Domain.Entities
 {
     public class Employer
     {
@@ -10,7 +12,9 @@
         public int Founded { get; set; }
         public int CompanySize { get; set; }
         public string CompanyLink{ get; set; }
-        public string Industry { get; set; } // Industry the company operates in
-        public string Description { get; set; } // Description of the company
+        public Industry Industry { get; set; }
+        public string Description { get; set; }
+
+        public ICollection<JobPosting> JobPostings { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace JobPortal.API.Controllers
         }
 
 
-        [Authorize(Policy = "JobSeeker")]
+        [Authorize(Policy = "Employer")]
         [HttpPost]
         public async Task<ActionResult> Post(CreateJobPostingCommand command)
         {
@@ -26,8 +26,7 @@ namespace JobPortal.API.Controllers
             return CreatedAtAction(nameof(Post), new { id = response });
         }
 
-
-        [Authorize(Policy = "Employer")]
+        [Authorize(Policy = "JobSeeker")]
         [HttpGet]
         public async Task<ActionResult<List<JobPostingDto>>> Get()
         {

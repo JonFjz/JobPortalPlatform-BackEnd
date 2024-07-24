@@ -25,18 +25,15 @@ namespace JobPortal.Application.Features.
         {
             var jobSeeker = await _claimsPrincipalAccessor.GetCurrentJobSeekerAsync();
 
-            var educationToCreate = new Education
-            {
-                Degree = request.Degree,
-                FieldOfStudy = request.FieldOfStudy,
-                InstitutionName = request.InstitutionName,
-                JobSeekerId = jobSeeker.Id
-            };
+            var educationToCreate = _mapper.Map<Education>(request);
+            educationToCreate.JobSeekerId = jobSeeker.Id;  
 
             await _unitOfWork.Repository<Education>().CreateAsync(educationToCreate);
             _unitOfWork.Complete();
 
             return educationToCreate.Id;
         }
+
+
     }
 }

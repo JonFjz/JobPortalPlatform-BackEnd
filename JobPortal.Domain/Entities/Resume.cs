@@ -10,7 +10,6 @@ namespace JobPortal.Domain.Entities
         public DateTime UploadedAt { get; set; }
 
         public int JobSeekerId { get; set; }
-        
         [JsonIgnore]
         public JobSeeker JobSeeker { get; set; }
     }

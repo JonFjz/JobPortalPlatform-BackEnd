@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using JobPortal.Domain.Enums;
+using MediatR;
 
 namespace JobPortal.Application.Features.Employers.Commands.UpdateEmployerProfile
 {
@@ -9,7 +10,7 @@ namespace JobPortal.Application.Features.Employers.Commands.UpdateEmployerProfil
         public int Founded { get; set; }
         public int CompanySize { get; set; }
         public string CompanyLink { get; set; }
-        public string Industry { get; set; }
+        public Industry Industry { get; set; }
         public string Description { get; set; }
     }
 

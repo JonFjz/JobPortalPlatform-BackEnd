@@ -3,7 +3,7 @@
     public interface IBlobStorageService
     {
         Task<string> UploadFileAsync(Stream fileStream, string fileName);
-        Task<byte[]> DownloadFileAsync(string blobUrl);
         Task DeleteFileAsync(string fileUrl);
+        Task<byte[]> DownloadFileAsync(string blobUrl);
     }
 }

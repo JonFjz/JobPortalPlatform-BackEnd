@@ -1,7 +1,6 @@
 ﻿using JobPortal.API.Controllers.Base;
 using JobPortal.Application.Features.Resumes.Commands.DeleteResume;
 using JobPortal.Application.Features.Resumes.Commands.UploadResume;
-using JobPortal.Application.Features.Resumes.Dtos;
 using JobPortal.Application.Features.Resumes.Queries.DownloadResume;
 using JobPortal.Application.Features.Resumes.Queries.GetResume;
 using MediatR;

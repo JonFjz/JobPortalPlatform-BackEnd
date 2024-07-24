@@ -6,5 +6,6 @@ namespace JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings
     public class GetAllJobPostingsQuery : IRequest<List<JobPostingDto>>
     {
 
+
     }
 }

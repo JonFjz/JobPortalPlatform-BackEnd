@@ -1,5 +1,4 @@
 ﻿using Azure.Storage.Blobs;
-using Azure.Storage.Sas;
 using JobPortal.Application.Contracts.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
