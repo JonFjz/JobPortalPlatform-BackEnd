@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Application.Features.BookmarkJobs.Commands.RemoveBookmarkJob
 {
-    public class RemoveBookmarkJobCommandHandler : IRequestHandler<RemoveBookmarkJobCommand, bool>
+    public class DeleteBookmarkJobCommandHandler : IRequestHandler<DeleteBookmarkJobCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IClaimsPrincipalAccessor _claimsPrincipalAccessor;
 
-        public RemoveBookmarkJobCommandHandler(IUnitOfWork unitOfWork,IClaimsPrincipalAccessor claimsPrincipalAccessor)
+        public DeleteBookmarkJobCommandHandler(IUnitOfWork unitOfWork,IClaimsPrincipalAccessor claimsPrincipalAccessor)
         {
             _unitOfWork = unitOfWork;
             _claimsPrincipalAccessor = claimsPrincipalAccessor;
         }
 
-        public async Task<bool> Handle(RemoveBookmarkJobCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteBookmarkJobCommand request, CancellationToken cancellationToken)
         {
             var jobSeeker = await _claimsPrincipalAccessor.GetCurrentJobSeekerAsync();
             var bookmarkJob = await _unitOfWork.Repository<BookmarkJob>().GetByCondition(x => x.JobSeekerId == jobSeeker.Id && x.JobPostingId == request.JobPostingId).FirstOrDefaultAsync();

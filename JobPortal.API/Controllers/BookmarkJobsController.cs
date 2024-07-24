@@ -28,9 +28,9 @@ namespace JobPortal.API.Controllers
 
         [Authorize(Policy = "JobSeeker")]
         [HttpDelete("bookmarks/{jobPostingId}")]
-        public async Task<IActionResult> RemoveBookmark(int jobPostingId)
+        public async Task<IActionResult> DeleteBookmark(int jobPostingId)
         {
-            await _mediator.Send(new RemoveBookmarkJobCommand(jobPostingId));
+            await _mediator.Send(new DeleteBookmarkJobCommand(jobPostingId));
             return NoContent();
         }
 

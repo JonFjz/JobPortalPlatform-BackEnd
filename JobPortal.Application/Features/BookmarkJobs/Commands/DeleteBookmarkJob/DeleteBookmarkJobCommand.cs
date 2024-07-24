@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Application.Features.BookmarkJobs.Commands.RemoveBookmarkJob
 {
-    public class RemoveBookmarkJobCommand: IRequest<bool>
+    public class DeleteBookmarkJobCommand: IRequest<bool>
     {
         public int JobPostingId { get; set; }
 
-        public RemoveBookmarkJobCommand(int jobPostingId)
+        public DeleteBookmarkJobCommand(int jobPostingId)
         {
             JobPostingId = jobPostingId;
         }
