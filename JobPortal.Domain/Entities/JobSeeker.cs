@@ -1,4 +1,6 @@
-﻿namespace JobPortal.Domain.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace JobPortal.Domain.Entities
 {
     public class JobSeeker
     {
@@ -9,6 +11,10 @@
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        [JsonIgnore]
+        public Resume Resume { get; set; }
+
 
         public ICollection<Skill> Skills { get; set; }
         public ICollection<WorkExperience> Experiences { get; set; }

@@ -4,12 +4,13 @@ using JobPortal.Infrastructure.Authentication.Services;
 using JobPortal.Persistence.Extensions;
 using JobPortal.Infrastructure.Extensions;
 using JobPortal.Application.Contracts.Infrastructure;
-using System.Runtime.Loader;
+using JobPortal.Infrastructure.Storage;
 using JobPortal.Application.Helpers.Models.Auth0;
 using JobPortal.Infrastructure.Network;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using System.Runtime.Loader;
 
 namespace JobPortal.API
 {
@@ -18,30 +19,25 @@ namespace JobPortal.API
         public static async Task Main(string[] args)
         {
             var files = Directory.GetFiles(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    "JobPortal*.dll");
+                AppDomain.CurrentDomain.BaseDirectory,
+                "JobPortal*.dll");
 
             var assemblies = files
                 .Select(p => AssemblyLoadContext.Default.LoadFromAssemblyPath(p));
 
             var builder = WebApplication.CreateBuilder(args);
 
-
-            builder.Services.AddHttpClient();
-
             // Add services to the container.
+            builder.Services.AddHttpClient();
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddPresentation(builder.Configuration);
             builder.Services.AddCacheServices(builder.Configuration);
-
-            builder.Services.AddHttpClient();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.Configure<Auth0Settings>(builder.Configuration.GetSection("Auth0"));
             builder.Services.AddScoped<IClaimsPrincipalAccessor, ClaimsPrincipalAccessor>();
             builder.Services.AddScoped<IAuth0Service, Auth0Service>();
-
-
+            builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
 
             builder.Services.AddAuthentication(options =>
             {
@@ -57,9 +53,6 @@ namespace JobPortal.API
                 };
             });
 
-
-
-
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("JobSeeker", policy =>
@@ -68,11 +61,18 @@ namespace JobPortal.API
                     policy.RequireClaim("https://dev-2si34b7jockzxhln/role", "Employer"));
             });
 
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("https://localhost:7136")
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-
             builder.Services.AddAdvancedDependencyInjection();
 
             builder.Services.Scan(p => p.FromAssemblies(assemblies)
@@ -88,6 +88,8 @@ namespace JobPortal.API
                 app.UseSwaggerUI();
             }
 
+            app.UseCors();
+            app.UseRouting();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

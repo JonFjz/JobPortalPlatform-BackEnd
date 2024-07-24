@@ -11,6 +11,6 @@
         public int CompanySize { get; set; }
         public string CompanyLink{ get; set; }
         public string Industry { get; set; } // Industry the company operates in
-        public string Description { get; set; }
+        public string Description { get; set; } // Description of the company
     }
 }

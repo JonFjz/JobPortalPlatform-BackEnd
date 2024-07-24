@@ -20,6 +20,7 @@ namespace JobPortal.Persistence
         public DbSet<Skill> Skills { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
         public DbSet<Education> Educations { get; set; }
+        public DbSet<Resume> Resumes { get; set; }
 
 
         public DbSet<Employer> Employers { get; set; }

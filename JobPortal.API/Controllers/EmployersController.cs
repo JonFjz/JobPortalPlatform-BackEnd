@@ -1,7 +1,6 @@
 ﻿using JobPortal.API.Controllers.Base;
 using JobPortal.Application.Features.Employers.Commands.UpdateEmployerProfile;
 using JobPortal.Application.Features.Employers.Queries.GetEmployerProfile;
-using JobPortal.Application.Features.JobSeeker.Queries.GetJobSeekerDetail;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

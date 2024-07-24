@@ -1,4 +1,5 @@
 ﻿using JobPortal.API.Controllers.Base;
+using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Features.JobSeeker.Commands.UpdateJobSeeker;
 using JobPortal.Application.Features.JobSeeker.Queries.GetJobSeekerDetail;
 using MediatR;
@@ -11,11 +12,12 @@ namespace JobPortal.API.Controllers
     public class JobSeekersController : BaseApiController
     {
         private readonly IMediator _mediator;
+        private readonly IBlobStorageService _blobService;
 
-
-        public JobSeekersController(IMediator mediator)
+        public JobSeekersController(IMediator mediator, IBlobStorageService blobService)
         {
-            _mediator = mediator;
+                _blobService = blobService;
+                _mediator = mediator;
         }
 
 
