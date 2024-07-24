@@ -5,6 +5,7 @@ using JobPortal.Application.Features.Educations.Dtos;
 using JobPortal.Application.Features.Employers.Commands.UpdateEmployerProfile;
 using JobPortal.Application.Features.Employers.Dtos;
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
+using JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting;
 using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Application.Features.JobSeeker.Commands.UpdateJobSeeker;
 using JobPortal.Application.Features.JobSeeker.Dtos;
@@ -36,6 +37,7 @@ namespace JobPortal.Application.Profiles
 
             CreateMap<JobPosting, JobPostingDto>().ReverseMap();
             CreateMap<CreateJobPostingCommand, JobPosting>();
+            CreateMap<UpdateJobPostingCommand, JobPosting>();
 
 
             CreateMap<Education, EducationDto>().ReverseMap();

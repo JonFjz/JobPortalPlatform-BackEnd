@@ -15,7 +15,6 @@ using JobPortal.Worker;
 using MassTransit;
 using JobPortal.Application.Helpers.Models.Email;
 using JobPortal.Infrastructure.Email;
-using Stripe;
 
 namespace JobPortal.API
 {
