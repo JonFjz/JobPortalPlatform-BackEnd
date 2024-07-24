@@ -1,4 +1,5 @@
 ﻿using JobPortal.Domain.Entities;
+using JobPortal.Persistence.BookmarkJobs;
 using JobPortal.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,8 @@ namespace JobPortal.Persistence
         public DbSet<Employer> Employers { get; set; }
         public DbSet<JobPosting> JobPostings { get; set; }
 
+        public DbSet<BookmarkJob> Bookmarks { get; set; }
+
 
 
         public void Save()
@@ -45,6 +48,7 @@ namespace JobPortal.Persistence
             base.OnModelCreating(builder);
             new JobPostingConfiguration().Configure(builder.Entity<JobPosting>());
             new JobSeekerConfiguration().Configure(builder.Entity<JobSeeker>());
+            new BookmarkJobConfiguration().Configure(builder.Entity<BookmarkJob>());
 
         }
     }

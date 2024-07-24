@@ -14,5 +14,7 @@ namespace JobPortal.Application.Interfaces
         void Delete(Tentity entity);
         void DeleteRange(List<Tentity> entity);
         Task SaveChangesAsync();
+        IQueryable<Tentity> GetByCondition(Expression<Func<Tentity, bool>> expression);
+
     }
 }

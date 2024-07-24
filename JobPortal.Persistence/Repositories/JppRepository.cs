@@ -43,7 +43,10 @@ namespace JobPortal.Persistence.Repositories
         {
             return await Task.FromResult(_dbContext.Set<Tentity>().Where(expression).ToList());
         }
-
+        public IQueryable<Tentity> GetByCondition(Expression<Func<Tentity, bool>> expression)
+        {
+            return _dbContext.Set<Tentity>().Where(expression);
+        }
         public async Task<Tentity> GetByIdAsync(Expression<Func<Tentity, bool>> expression)
         {
             return await _dbContext.Set<Tentity>().FirstOrDefaultAsync(expression);

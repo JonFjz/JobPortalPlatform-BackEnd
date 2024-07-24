@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JobPortal.Application.Features.BookmarkJobs.Dtos;
 using JobPortal.Application.Features.Educations.Commands.CreateEducation;
 using JobPortal.Application.Features.Educations.Commands.UpdateEducation;
 using JobPortal.Application.Features.Educations.Dtos;
@@ -52,6 +53,13 @@ namespace JobPortal.Application.Profiles
 
 
             CreateMap<Resume, ResumeDto>().ReverseMap();
+
+
+            CreateMap<BookmarkJob, BookmarkedJobDto>()
+            .ForMember(dest => dest.JobPostingId, opt => opt.MapFrom(src => src.JobPosting.Id))
+            .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.JobPosting.Title))
+            .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.JobPosting.Employer.CompanyName));
+
         }
 
 
