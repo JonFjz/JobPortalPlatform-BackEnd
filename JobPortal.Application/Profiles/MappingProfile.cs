@@ -10,6 +10,7 @@ using JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting;
 using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Application.Features.JobSeeker.Commands.UpdateJobSeeker;
 using JobPortal.Application.Features.JobSeeker.Dtos;
+using JobPortal.Application.Features.Photos.Dtos;
 using JobPortal.Application.Features.Resumes.Dtos;
 using JobPortal.Application.Features.WorkExperiences.Commands.CreateWorkExperience;
 using JobPortal.Application.Features.WorkExperiences.Commands.UpdateWorkExperience;
@@ -53,6 +54,8 @@ namespace JobPortal.Application.Profiles
 
 
             CreateMap<Resume, ResumeDto>().ReverseMap();
+
+            CreateMap<Photo, PhotoDto>().ReverseMap();
 
 
             CreateMap<BookmarkJob, BookmarkedJobDto>()

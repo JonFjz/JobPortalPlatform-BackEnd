@@ -16,5 +16,6 @@ namespace JobPortal.Domain.Entities
         public string Description { get; set; }
 
         public ICollection<JobPosting> JobPostings { get; set; }
+        public ICollection<Photo> Photos { get; set; } = new List<Photo>();
     }
 }

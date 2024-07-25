@@ -29,6 +29,8 @@ namespace JobPortal.Persistence
 
         public DbSet<BookmarkJob> Bookmarks { get; set; }
 
+        public DbSet<Photo> Photos { get; set; }
+
 
 
         public void Save()
