@@ -1,13 +1,8 @@
-﻿using System;
-using JobPortal.API.Controllers.Base;
+﻿using JobPortal.API.Controllers.Base;
 using JobPortal.Application.Features.Photos.Commands.DeletePhoto;
 using JobPortal.Application.Features.Photos.Commands.UploadPhoto;
 using JobPortal.Application.Features.Photos.Queries.DownloadPhoto;
 using JobPortal.Application.Features.Photos.Queries.GetPhoto;
-using JobPortal.Application.Features.Resumes.Commands.DeleteResume;
-using JobPortal.Application.Features.Resumes.Commands.UploadResume;
-using JobPortal.Application.Features.Resumes.Queries.DownloadResume;
-using JobPortal.Application.Features.Resumes.Queries.GetResume;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

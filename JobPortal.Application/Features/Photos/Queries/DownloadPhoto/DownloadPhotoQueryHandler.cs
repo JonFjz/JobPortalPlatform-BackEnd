@@ -1,9 +1,6 @@
-﻿using System;
-using JobPortal.Application.Contracts.Infrastructure;
+﻿using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Application.Features.Photos.Dtos;
-using JobPortal.Application.Features.Resumes.Dtos;
-using JobPortal.Application.Features.Resumes.Queries.DownloadResume;
 using JobPortal.Domain.Entities;
 using MediatR;
 

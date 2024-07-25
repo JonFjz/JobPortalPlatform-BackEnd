@@ -1,12 +1,11 @@
-﻿using System;
-using JobPortal.Application.Contracts.Infrastructure;
+﻿using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Domain.Entities;
 using MediatR;
 
 namespace JobPortal.Application.Features.Photos.Commands.UploadPhoto
 {
-	public class UploadPhotoCommandHanlder : IRequestHandler<UploadPhotoCommand, int>
+    public class UploadPhotoCommandHanlder : IRequestHandler<UploadPhotoCommand, int>
     {
         private readonly IBlobStorageService _blobService;
         private readonly IUnitOfWork _unitOfWork;

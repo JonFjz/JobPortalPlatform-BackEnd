@@ -3,11 +3,6 @@ using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobPortal.Application.Features.BookmarkJobs.Commands.RemoveBookmarkJob
 {

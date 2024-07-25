@@ -21,11 +21,10 @@ namespace JobPortal.API.Controllers
         }
 
 
-        [HttpGet("details")]
+        [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
-            var query = new GetJobEmployerProfileQuery();
-            var userDetails = await _mediator.Send(query);
+            var userDetails = await _mediator.Send(new GetJobEmployerProfileQuery());
             return Ok(userDetails);
         }
 

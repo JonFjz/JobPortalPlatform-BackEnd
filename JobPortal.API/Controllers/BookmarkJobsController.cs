@@ -3,7 +3,6 @@ using JobPortal.Application.Features.BookmarkJobs.Commands.RemoveBookmarkJob;
 using JobPortal.Application.Features.BookmarkJobs.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers

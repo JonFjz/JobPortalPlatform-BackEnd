@@ -35,11 +35,12 @@ namespace JobPortal.Application.Profiles
 
             CreateMap<Employer, EmployerDto>().ReverseMap();
             CreateMap<Employer, UpdateEmployerProfileCommand>().ReverseMap();
-
+            CreateMap<Employer, EmployerOverviewDto>();
 
             CreateMap<JobPosting, JobPostingDto>().ReverseMap();
             CreateMap<CreateJobPostingCommand, JobPosting>();
             CreateMap<UpdateJobPostingCommand, JobPosting>();
+            CreateMap<JobPosting, JobPostingOverviewDto>().ReverseMap();
 
 
             CreateMap<Education, EducationDto>().ReverseMap();

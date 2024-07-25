@@ -1,7 +1,6 @@
-﻿using System;
-namespace JobPortal.Application.Features.Photos.Dtos
+﻿namespace JobPortal.Application.Features.Photos.Dtos
 {
-	public class PhotoDto
+    public class PhotoDto
 	{
         public string Url { get; set; }
         public DateTime UploadedAt { get; set; }

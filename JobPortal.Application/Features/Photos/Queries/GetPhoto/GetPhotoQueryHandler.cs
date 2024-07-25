@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Application.Features.Photos.Dtos;
@@ -8,7 +7,7 @@ using MediatR;
 
 namespace JobPortal.Application.Features.Photos.Queries.GetPhoto
 {
-	public class GetPhotoQueryHandler : IRequestHandler<GetPhotoQuery, PhotoDto>
+    public class GetPhotoQueryHandler : IRequestHandler<GetPhotoQuery, PhotoDto>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IClaimsPrincipalAccessor _claimsAccessor;

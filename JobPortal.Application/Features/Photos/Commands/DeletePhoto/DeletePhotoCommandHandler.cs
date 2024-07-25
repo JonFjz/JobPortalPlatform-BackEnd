@@ -1,12 +1,11 @@
-﻿using System;
-using JobPortal.Application.Contracts.Infrastructure;
+﻿using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Domain.Entities;
 using MediatR;
 
 namespace JobPortal.Application.Features.Photos.Commands.DeletePhoto
 {
-	public class DeletePhotoCommandHandler : IRequestHandler<DeletePhotoCommand>
+    public class DeletePhotoCommandHandler : IRequestHandler<DeletePhotoCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IClaimsPrincipalAccessor _claimsAccessor;

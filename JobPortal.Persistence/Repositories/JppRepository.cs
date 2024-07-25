@@ -39,6 +39,21 @@ namespace JobPortal.Persistence.Repositories
             return await _dbContext.Set<Tentity>().ToListAsync();
         }
 
+
+        public async Task<List<Tentity>> GetPagedByConditionAsync(Expression<Func<Tentity, bool>> filter, int skip, int take)
+        {
+            return await _dbContext.Set<Tentity>()
+                .Where(filter)
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+        }
+
+        public async Task<int> CountByConditionAsync(Expression<Func<Tentity, bool>> expression)
+        {
+            return await _dbContext.Set<Tentity>()
+                .CountAsync(expression);
+        }
         public async Task<List<Tentity>> GetByConditionAsync(Expression<Func<Tentity, bool>> expression)
         {
             return await Task.FromResult(_dbContext.Set<Tentity>().Where(expression).ToList());

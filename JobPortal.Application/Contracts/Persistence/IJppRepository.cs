@@ -6,6 +6,8 @@ namespace JobPortal.Application.Interfaces
     {
         Task<List<Tentity>> GetByConditionAsync(Expression<Func<Tentity, bool>> expression);
         Task<Tentity> GetByIdAsync(Expression<Func<Tentity, bool>> expression);
+        Task<List<Tentity>> GetPagedByConditionAsync(Expression<Func<Tentity, bool>> expression, int skip, int take);
+        Task<int> CountByConditionAsync(Expression<Func<Tentity, bool>> filter);
         Task<IReadOnlyList<Tentity>> GetAllAsync();
         Task CreateAsync(Tentity entity);
         void CreateRange(List<Tentity> entity);

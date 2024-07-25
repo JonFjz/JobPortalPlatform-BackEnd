@@ -2,7 +2,6 @@
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.DeleteJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting;
-using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings;
 using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById;
 using MediatR;
@@ -47,11 +46,11 @@ namespace JobPortal.API.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<ActionResult<List<JobPostingDto>>> Get()
+        [HttpGet("by-employer/{employerId}")]
+        public async Task<IActionResult> GetJobPostingsByEmployer(int employerId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var jobPostings = await _mediator.Send(new GetAllJobPostingsQuery());
-            return Ok(jobPostings);
+            var jobPostingsByEmployer = await _mediator.Send(new GetJobPostingsByEmployerQuery(employerId, pageNumber, pageSize));
+            return Ok(jobPostingsByEmployer);
         }
 
 
