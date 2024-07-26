@@ -22,6 +22,15 @@ namespace JobPortal.Application.Features.Photos.Commands.UploadPhoto
         {
             var employer = await _claimsAccessor.GetCurrentEmployerAsync();
 
+            var existingPhoto = await _unitOfWork.Repository<Photo>().GetByConditionAsync(p => p.EmployerId == employer.Id);
+
+            if (existingPhoto != null && existingPhoto.Any())
+            {
+                await _blobService.DeleteFileAsync(existingPhoto.First().Url);
+
+                _unitOfWork.Repository<Photo>().Delete(existingPhoto.First());
+            }
+
             var url = await _blobService.UploadFileAsync(request.File.OpenReadStream(), request.File.FileName);
 
             var photo = new Photo

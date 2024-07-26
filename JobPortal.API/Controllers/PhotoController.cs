@@ -1,7 +1,6 @@
 ﻿using JobPortal.API.Controllers.Base;
 using JobPortal.Application.Features.Photos.Commands.DeletePhoto;
 using JobPortal.Application.Features.Photos.Commands.UploadPhoto;
-using JobPortal.Application.Features.Photos.Queries.DownloadPhoto;
 using JobPortal.Application.Features.Photos.Queries.GetPhoto;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,11 +18,11 @@ namespace JobPortal.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("upload")]
-        public async Task<IActionResult> Upload([FromForm] UploadPhotoCommand command)
+        [HttpPost("photo")]
+        public async Task<IActionResult> UploadPhoto([FromForm] UploadPhotoCommand command)
         {
-            var photo = await _mediator.Send(command);
-            return Ok(photo);
+            var photoId = await _mediator.Send(command);
+            return Ok(new { PhotoId = photoId });
         }
 
         [HttpDelete]
@@ -37,15 +36,14 @@ namespace JobPortal.API.Controllers
         public async Task<IActionResult> Get()
         {
             var photo = await _mediator.Send(new GetPhotoQuery());
-            return Ok(photo);
+            if (photo == null)
+            {
+                return NotFound();
+            }
+
+            return photo;
         }
 
-        [HttpGet("download")]
-        public async Task<IActionResult> Download()
-        {
-            var result = await _mediator.Send(new DownloadPhotoQuery());
-            return File(result.FileData, "application/octet-stream", result.FileName);
-        }
     }
 }
 

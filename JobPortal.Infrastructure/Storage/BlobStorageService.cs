@@ -43,5 +43,12 @@ namespace JobPortal.Infrastructure.Storage
             }
         }
 
+        public async Task<Stream> GetFileStreamAsync(string blobUrl)
+        {
+            var blobClient = new BlobClient(new Uri(blobUrl));
+            var response = await blobClient.DownloadAsync();
+            return response.Value.Content;
+        }
+
     }
 }

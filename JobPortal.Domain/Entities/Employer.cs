@@ -14,8 +14,9 @@ namespace JobPortal.Domain.Entities
         public string CompanyLink{ get; set; }
         public Industry Industry { get; set; }
         public string Description { get; set; }
+        public Photo Photo { get; set; }
 
         public ICollection<JobPosting> JobPostings { get; set; }
-        public ICollection<Photo> Photos { get; set; } = new List<Photo>();
+       
     }
 }

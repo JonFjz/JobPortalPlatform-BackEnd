@@ -30,7 +30,6 @@
     <None Remove="Features\Photos\Queries\" />
     <None Remove="Features\Photos\Commands\DeletePhoto\" />
     <None Remove="Features\Photos\Commands\UploadPhoto\" />
-    <None Remove="Features\Photos\Queries\DownloadPhoto\" />
     <None Remove="Features\Photos\Queries\GetPhoto\" />
   </ItemGroup>
   <ItemGroup>
@@ -40,7 +39,6 @@
     <Folder Include="Features\Photos\Queries\" />
     <Folder Include="Features\Photos\Commands\DeletePhoto\" />
     <Folder Include="Features\Photos\Commands\UploadPhoto\" />
-    <Folder Include="Features\Photos\Queries\DownloadPhoto\" />
     <Folder Include="Features\Photos\Queries\GetPhoto\" />
   </ItemGroup>
 </Project>
