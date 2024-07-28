@@ -1,5 +1,6 @@
 ﻿using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Helpers.Models.Email;
+using JobPortal.Infrastructure.Configurations;
 using Mailjet.Client;
 using Mailjet.Client.Resources;
 using Microsoft.Extensions.Options;

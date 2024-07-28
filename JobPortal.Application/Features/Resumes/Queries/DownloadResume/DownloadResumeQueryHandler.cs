@@ -29,12 +29,12 @@ namespace JobPortal.Application.Features.Resumes.Queries.DownloadResume
                 throw new KeyNotFoundException("Resume not found.");
             }
 
-            var fileData = await _blobService.DownloadFileAsync(resume.Url);
+            var fileData = await _blobService.DownloadResumeAsync(resume.BlobUniqueName);
 
             return new DownloadResumeResult
             {
                 FileData = fileData,
-                FileName = resume.ResumeName ?? "resume.pdf"
+                FileName = resume.OriginalResumeName ?? "resume.pdf"
             };
         }
     }

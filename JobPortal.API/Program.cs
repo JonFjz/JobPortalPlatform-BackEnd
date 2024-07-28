@@ -1,20 +1,13 @@
 using JobPortal.API.Extensions;
 using JobPortal.Application.Extensions;
-using JobPortal.Infrastructure.Authentication.Services;
 using JobPortal.Persistence.Extensions;
 using JobPortal.Infrastructure.Extensions;
-using JobPortal.Application.Contracts.Infrastructure;
-using JobPortal.Infrastructure.Storage;
-using JobPortal.Application.Helpers.Models.Auth0;
-using JobPortal.Infrastructure.Network;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Runtime.Loader;
 using JobPortal.Worker;
 using MassTransit;
-using JobPortal.Application.Helpers.Models.Email;
-using JobPortal.Infrastructure.Email;
 
 namespace JobPortal.API
 {
@@ -36,17 +29,9 @@ namespace JobPortal.API
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddPresentation(builder.Configuration);
-            builder.Services.AddCacheServices(builder.Configuration);
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
-            builder.Services.Configure<Auth0Settings>(builder.Configuration.GetSection("Auth0"));
-            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
-            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            builder.Services.AddScoped<IClaimsPrincipalAccessor, ClaimsPrincipalAccessor>();
-            builder.Services.AddScoped<IPaymentService, PaymentService>();
-            builder.Services.AddScoped<IAuth0Service, Auth0Service>();
-            builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
-            builder.Services.AddTransient<IEmailService, EmailService>();
 
             builder.Services.AddMassTransit(x =>
             {

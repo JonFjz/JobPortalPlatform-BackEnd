@@ -19,6 +19,7 @@ namespace JobPortal.API.Controllers
             _mediator = mediator;
         }
 
+
         [HttpPost("upload")]
         public async Task<IActionResult> Upload([FromForm] UploadResumeCommand command)
         {
@@ -26,12 +27,6 @@ namespace JobPortal.API.Controllers
             return Ok(resume);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete()
-        {
-            await _mediator.Send(new DeleteResumeCommand());
-            return NoContent();
-        }
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -40,11 +35,20 @@ namespace JobPortal.API.Controllers
             return Ok(resume);
         }
 
+
         [HttpGet("download")]
         public async Task<IActionResult> Download()
         {
             var result = await _mediator.Send(new DownloadResumeQuery());
             return File(result.FileData, "application/octet-stream", result.FileName);
+        }
+
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete()
+        {
+            await _mediator.Send(new DeleteResumeCommand());
+            return NoContent();
         }
     }
 }

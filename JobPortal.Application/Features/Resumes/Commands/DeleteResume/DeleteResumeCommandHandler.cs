@@ -21,14 +21,16 @@ namespace JobPortal.Application.Features.Resumes.Commands.DeleteResume
         public async Task Handle(DeleteResumeCommand request, CancellationToken cancellationToken)
         {
             var jobSeeker = await _claimsAccessor.GetCurrentJobSeekerAsync();
-            var resume = await _unitOfWork.Repository<Resume>().GetByConditionAsync(r => r.JobSeekerId == jobSeeker.Id);
+            var resume = (await _unitOfWork.Repository<Resume>().GetByConditionAsync(r => r.JobSeekerId == jobSeeker.Id)).FirstOrDefault();
 
             if (resume == null)
+            {
                 throw new KeyNotFoundException("Resume not found.");
+            }
 
-            await _blobService.DeleteFileAsync(resume.First().Url);
+            await _blobService.DeleteResumeAsync(resume.BlobUniqueName);
 
-            _unitOfWork.Repository<Resume>().Delete(resume.First());
+            _unitOfWork.Repository<Resume>().Delete(resume);
             _unitOfWork.Complete();
 
         }

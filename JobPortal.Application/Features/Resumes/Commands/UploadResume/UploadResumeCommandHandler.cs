@@ -22,14 +22,13 @@ namespace JobPortal.Application.Features.Resumes.Commands.UploadResume
         {
             var jobSeeker = await _claimsAccessor.GetCurrentJobSeekerAsync();
 
-            var url = await _blobService.UploadFileAsync(request.File.OpenReadStream(), request.File.FileName);
+            var uniqueBlobName = await _blobService.UploadResumeAsync(request.File.OpenReadStream(), request.File.FileName);
 
             var resume = new Resume
             {
-                Url = url,
-                ResumeName = request.File.FileName,
-                UploadedAt = DateTime.UtcNow,
-                JobSeekerId = jobSeeker.Id
+                OriginalResumeName = request.File.FileName,
+                JobSeekerId = jobSeeker.Id,
+                BlobUniqueName = uniqueBlobName
             };
 
             await _unitOfWork.Repository<Resume>().CreateAsync(resume);

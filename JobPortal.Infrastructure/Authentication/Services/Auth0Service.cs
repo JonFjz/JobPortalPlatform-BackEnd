@@ -2,6 +2,7 @@
 using JobPortal.Application.Features.Employers.Dtos;
 using JobPortal.Application.Features.JobSeeker.Dtos;
 using JobPortal.Application.Helpers.Models.Auth0;
+using JobPortal.Infrastructure.Configurations;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;

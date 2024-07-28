@@ -26,16 +26,17 @@ namespace JobPortal.Application.Features.Photos.Commands.UploadPhoto
 
             if (existingPhoto != null && existingPhoto.Any())
             {
-                await _blobService.DeleteFileAsync(existingPhoto.First().Url);
+                await _blobService.DeletePhotoAsync(existingPhoto.First().BlobUniqueName);
 
                 _unitOfWork.Repository<Photo>().Delete(existingPhoto.First());
             }
 
-            var url = await _blobService.UploadFileAsync(request.File.OpenReadStream(), request.File.FileName);
+            var uniqueBlobName = await _blobService.UploadLogoAsync(request.File.OpenReadStream(), request.File.FileName);
 
             var photo = new Photo
             {
-                Url = url,
+                OriginalPhotoName = request.File.FileName,
+                BlobUniqueName = uniqueBlobName,
                 UploadedAt = DateTime.UtcNow,
                 EmployerId = employer.Id
             };

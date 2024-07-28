@@ -28,7 +28,7 @@ namespace JobPortal.Application.Features.Photos.Commands.DeletePhoto
                 throw new KeyNotFoundException("Photo not found.");
             
 
-            await _blobService.DeleteFileAsync(photo.First().Url);
+            await _blobService.DeletePhotoAsync(photo.First().BlobUniqueName);
 
             _unitOfWork.Repository<Photo>().Delete(photo.First());
             _unitOfWork.Complete();

@@ -28,7 +28,7 @@ public class GetPhotoQueryHandler : IRequestHandler<GetPhotoQuery, FileStreamRes
             return null;
         }
 
-        var fileStream = await _blobService.DownloadFileAsync(photo.Url);
+        var fileStream = await _blobService.DownloadLogoAsync(photo.BlobUniqueName);
 
         return new FileStreamResult(new MemoryStream(fileStream), "image/jpeg") 
         {

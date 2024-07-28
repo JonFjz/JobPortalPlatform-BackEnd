@@ -2,20 +2,20 @@
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Domain.Entities;
 using JobPortal.Domain.Enums;
-using Microsoft.Extensions.Configuration;
+using JobPortal.Infrastructure.Configurations;
+using Microsoft.Extensions.Options;
 using Stripe;
 
 public class PaymentService : IPaymentService
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IConfiguration _config;
+    private readonly PaymentSettings _paymentSettings;
     private const decimal DefaultStandardPrice = 100.00m;
 
-    public PaymentService(IUnitOfWork unitOfWork, IConfiguration config)
+    public PaymentService(IUnitOfWork unitOfWork, IOptions<PaymentSettings> paymentSettings)
     {
-        _config = config;
         _unitOfWork = unitOfWork;
-        StripeConfiguration.ApiKey = _config["Stripe:SecretKey"];
+        _paymentSettings = paymentSettings.Value;
     }
 
     public async Task<JobPosting> UpgradeToPremium(int jobPostingId)
@@ -23,12 +23,7 @@ public class PaymentService : IPaymentService
         var jobPosting = await _unitOfWork.Repository<JobPosting>().GetByIdAsync(jp => jp.Id == jobPostingId);
         if (jobPosting == null) return null;
 
-        if (jobPosting.StandardPrice < DefaultStandardPrice)
-        {
-            jobPosting.StandardPrice = DefaultStandardPrice;
-        }
-
-        long amountInCents = (long)(jobPosting.StandardPrice * 100);
+        long amountInCents = (long)(DefaultStandardPrice * 100);
 
         var service = new PaymentIntentService();
         PaymentIntent intent;
@@ -62,14 +57,14 @@ public class PaymentService : IPaymentService
             await service.UpdateAsync(jobPosting.PaymentIntentId, options);
         }
 
-        jobPosting.UpgradedAt = DateTime.Now;
-        jobPosting.PremiumUntil = DateTime.Now.AddMonths(1); // 1 month premium period
+        jobPosting.PremiumUntil = DateTime.Now.AddMonths(1); 
 
         await _unitOfWork.Repository<JobPosting>().UpdateAsync(jobPosting);
         _unitOfWork.Complete();
 
         return jobPosting;
     }
+
 
     public async Task<JobPosting> UpdateJobPostingPaymentSucceeded(string paymentIntentId)
     {
@@ -78,7 +73,9 @@ public class PaymentService : IPaymentService
 
         var jobPosting = intentId.FirstOrDefault();
         if (jobPosting == null) return null;
-        
+
+
+        jobPosting.UpgradedAt = DateTime.Now;
         jobPosting.PaymentStatus = PaymentStatus.Completed;
         jobPosting.SubscriptionStatus = SubscriptionStatus.Active;
 
@@ -87,6 +84,7 @@ public class PaymentService : IPaymentService
 
         return jobPosting;
     }
+
 
     public async Task<JobPosting> UpdateJobPostingPaymentFailed(string paymentIntentId)
     {
