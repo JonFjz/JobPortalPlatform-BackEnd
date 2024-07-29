@@ -30,9 +30,9 @@ public class GetPhotoQueryHandler : IRequestHandler<GetPhotoQuery, FileStreamRes
 
         var fileStream = await _blobService.DownloadLogoAsync(photo.BlobUniqueName);
 
-        return new FileStreamResult(new MemoryStream(fileStream), "image/jpeg") 
+        return new FileStreamResult(new MemoryStream(fileStream), "image/jpeg")
         {
-            FileDownloadName = "photo.jpg" 
+            FileDownloadName = "photo.jpg"
         };
     }
 }

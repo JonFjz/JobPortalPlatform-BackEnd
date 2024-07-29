@@ -7,6 +7,7 @@ namespace JobPortal.Application.Features.Employers.Queries.GetEmployersByIndustr
 {
     public class GetEmployersByIndustryQuery : IRequest<PagedResult<EmployerOverviewDto>>
     {
+
         public Industry Industry { get; set; }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

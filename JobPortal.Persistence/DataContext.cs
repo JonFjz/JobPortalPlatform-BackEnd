@@ -31,6 +31,8 @@ namespace JobPortal.Persistence
 
         public DbSet<Photo> Photos { get; set; }
 
+        public DbSet<JobApplication> JobApplications { get; set; }
+
 
 
         public void Save()

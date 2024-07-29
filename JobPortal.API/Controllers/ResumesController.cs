@@ -2,6 +2,7 @@
 using JobPortal.Application.Features.Resumes.Commands.DeleteResume;
 using JobPortal.Application.Features.Resumes.Commands.UploadResume;
 using JobPortal.Application.Features.Resumes.Queries.DownloadResume;
+using JobPortal.Application.Features.Resumes.Queries.DownloadResumeForEmployers;
 using JobPortal.Application.Features.Resumes.Queries.GetResume;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,6 @@ namespace JobPortal.API.Controllers
         {
             _mediator = mediator;
         }
-
 
         [HttpPost("upload")]
         public async Task<IActionResult> Upload([FromForm] UploadResumeCommand command)
@@ -50,5 +50,15 @@ namespace JobPortal.API.Controllers
             await _mediator.Send(new DeleteResumeCommand());
             return NoContent();
         }
+
+
+
+        [HttpGet("{jobApplicationId}/download")]
+        public async Task<IActionResult> Download(int jobApplicationId)
+        {
+            var result = await _mediator.Send(new DownloadResumeForEmployerQuery { JobApplicationId = jobApplicationId });
+            return File(result.FileData, "application/pdf", result.FileName);
+        }
+
     }
 }

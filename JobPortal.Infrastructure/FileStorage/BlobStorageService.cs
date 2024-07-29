@@ -28,7 +28,7 @@ namespace JobPortal.Infrastructure.Storage
 
             await blobClient.UploadAsync(data);
 
-            return uniqueBlobName; 
+            return uniqueBlobName;
         }
 
         public Task<string> UploadResumeAsync(Stream data, string fileName)

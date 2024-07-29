@@ -12,7 +12,7 @@ namespace JobPortal.Domain.Entities
         public string Responsibilities { get; set; }
         public WorkType WorkType { get; set; } 
         public WorkLevel WorkLevel { get; set; }
-        public string NotificationEmail { get; set; } //email to send updates when a job seeker applies
+        public string NotificationEmail { get; set; } 
 
         //premium job posting related fields
         public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
@@ -21,7 +21,7 @@ namespace JobPortal.Domain.Entities
         public DateTime? PremiumUntil { get; set; }
         public decimal StandardPrice { get; set; }
 
-        // Stripe payment-related fields
+        //stripe payment-related fields
         public string ClientSecret { get; set; }
         public string PaymentIntentId { get; set; }
 
@@ -29,7 +29,7 @@ namespace JobPortal.Domain.Entities
         public int EmployerId { get; set; }
         public Employer Employer { get; set; }
 
-
+        public ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
 
     }
 }

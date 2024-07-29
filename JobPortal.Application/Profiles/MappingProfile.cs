@@ -5,6 +5,8 @@ using JobPortal.Application.Features.Educations.Commands.UpdateEducation;
 using JobPortal.Application.Features.Educations.Dtos;
 using JobPortal.Application.Features.Employers.Commands.UpdateEmployerProfile;
 using JobPortal.Application.Features.Employers.Dtos;
+using JobPortal.Application.Features.JobApplications.Command.ApplyToJob;
+using JobPortal.Application.Features.JobApplications.Dtos;
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting;
 using JobPortal.Application.Features.JobPostings.Dtos;
@@ -58,14 +60,17 @@ namespace JobPortal.Application.Profiles
 
             CreateMap<Photo, PhotoDto>().ReverseMap();
 
+            CreateMap<ApplyToJobCommand, JobApplication>();
+                //.ForMember(dest => dest.ResumeBlobName, opt => opt.Ignore())
+                //.ForMember(dest => dest.JobApplicationStatus, opt => opt.MapFrom(src => JobApplicationStatus.Pending));
+
+
+            CreateMap<JobApplication, JobApplicationDto>().ReverseMap();
 
             CreateMap<BookmarkJob, BookmarkedJobDto>()
             .ForMember(dest => dest.JobPostingId, opt => opt.MapFrom(src => src.JobPosting.Id))
             .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.JobPosting.Title))
             .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.JobPosting.Employer.CompanyName));
-
         }
-
-
     }
 }
