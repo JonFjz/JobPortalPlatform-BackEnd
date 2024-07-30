@@ -39,6 +39,8 @@ namespace JobPortal.Application.Features.JobApplications.Queries.GetJobPostingBy
 
             var jobApplications = await _unitOfWork.Repository<JobApplication>()
                 .GetByCondition(x => x.JobSeekerId == jobSeeker.Id)
+                .Include(x => x.JobPosting)
+                .ThenInclude(jp => jp.Employer)
                 .OrderByDescending(x =>x.AppliedOn)
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)

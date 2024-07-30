@@ -13,7 +13,7 @@ namespace JobPortal.Application.Features.JobApplications.Dtos
     {
         public int Id { get; set; }
         public DateTime AppliedOn { get; set; } 
-        public JobApplicationStatus JobApplicationStatus { get; set; }
+        public string JobApplicationStatus { get; set; }
 
         public JobPostingDto JobPosting { get; set; }
     }

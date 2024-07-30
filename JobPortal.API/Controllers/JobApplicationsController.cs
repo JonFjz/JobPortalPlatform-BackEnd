@@ -2,6 +2,7 @@
 using JobPortal.Application.Features.JobApplications.Command.UpdateJobApplicationStatus;
 using JobPortal.Application.Features.JobApplications.Dtos;
 using JobPortal.Application.Features.JobApplications.Queries.GetJobApplicationsForJobPosting;
+using JobPortal.Application.Features.JobApplications.Queries.GetJobPostingByJobSeeker;
 using JobPortal.Application.Helpers.Models.Pagination;
 using JobPortal.Domain.Enums;
 using MediatR;
@@ -42,6 +43,13 @@ namespace JobPortal.API.Controllers
         {
             await _mediator.Send(new UpdateJobApplicationStatusCommand{JobApplicationId = id, NewStatus = newStatus});
             return NoContent();
+        }
+
+        [HttpGet("by-jobseeker")]
+        public async Task<ActionResult<PagedResult<JobApplicatinForJobSeekerDto>>> GetJobApplicationsByJobSeeker([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var jobApplications = await _mediator.Send(new GetJobApplicationByJobSeekerQuery(pageNumber, pageSize));
+            return Ok(jobApplications);
         }
     }
 }

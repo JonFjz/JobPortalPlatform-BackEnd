@@ -10,7 +10,6 @@ using JobPortal.Worker;
 using MassTransit;
 using JobPortal.Application.Helpers.Models.Email;
 using JobPortal.Infrastructure.Email;
-using JobPortal.Infrastructure.RealTime;
 
 namespace JobPortal.API
 {
@@ -105,7 +104,7 @@ namespace JobPortal.API
                 app.UseSwaggerUI();
             }
 
-            app.MapHub<RealTimeHub>("/realtimehub");
+        //    app.MapHub<RealTimeHub>("/realtimehub");
 
             app.UseCors();
             app.UseRouting();

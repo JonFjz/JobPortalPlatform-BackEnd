@@ -15,6 +15,9 @@ using JobPortal.Application.Features.JobSeeker.Dtos;
 using JobPortal.Application.Features.Photos.Dtos;
 using JobPortal.Application.Features.Resumes.Dtos;
 using JobPortal.Application.Features.Reviews.Dtos;
+using JobPortal.Application.Features.Skills.Commands.CreateSkill;
+using JobPortal.Application.Features.Skills.Commands.UpdateSkill;
+using JobPortal.Application.Features.Skills.Dtos;
 using JobPortal.Application.Features.WorkExperiences.Commands.CreateWorkExperience;
 using JobPortal.Application.Features.WorkExperiences.Commands.UpdateWorkExperience;
 using JobPortal.Application.Features.WorkExperiences.Dtos;
@@ -40,16 +43,21 @@ namespace JobPortal.Application.Profiles
             CreateMap<Employer, UpdateEmployerProfileCommand>().ReverseMap();
             CreateMap<Employer, EmployerOverviewDto>();
 
-            CreateMap<JobPosting, JobPostingDto>()
-                .ForMember(dest => dest.EmployerId, opt => opt.MapFrom(src => src.Employer.Id))
-                .ForMember(dest => dest.EmployerName, opt => opt.MapFrom(src => src.Employer.CompanyName))
-                .ReverseMap();
             CreateMap<CreateJobPostingCommand, JobPosting>();
             CreateMap<UpdateJobPostingCommand, JobPosting>();
-            CreateMap<JobPosting, JobPostingOverviewDto>().ReverseMap();
 
-            CreateMap<JobApplication, JobApplicatinForJobSeekerDto>();
+            CreateMap<JobApplication, JobApplicatinForJobSeekerDto>()
+            .ForMember(dest => dest.JobPosting, opt => opt.MapFrom(src => src.JobPosting));
 
+            CreateMap<JobApplication, JobApplicatinForJobSeekerDto>().ReverseMap();
+
+            CreateMap<JobPosting, JobPostingDto>()
+                .ForMember(dest => dest.EmployerId, opt => opt.MapFrom(src => src.EmployerId))
+                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.Employer.CompanyName));
+
+            CreateMap<Skill, SkillDto>().ReverseMap();
+            CreateMap<CreateSkillCommand, Skill>();
+            CreateMap<UpdateSkillCommand, Skill>().ReverseMap();
 
             CreateMap<Education, EducationDto>().ReverseMap();
             CreateMap<CreateEducationCommand, Education>();
