@@ -26,7 +26,7 @@ namespace JobPortal.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<JobPosting, JobPostingDto>().ReverseMap();
+            
             CreateMap<CreateJobPostingCommand, JobPosting>();
 
 
@@ -40,10 +40,15 @@ namespace JobPortal.Application.Profiles
             CreateMap<Employer, UpdateEmployerProfileCommand>().ReverseMap();
             CreateMap<Employer, EmployerOverviewDto>();
 
-            CreateMap<JobPosting, JobPostingDto>().ReverseMap();
+            CreateMap<JobPosting, JobPostingDto>()
+                .ForMember(dest => dest.EmployerId, opt => opt.MapFrom(src => src.Employer.Id))
+                .ForMember(dest => dest.EmployerName, opt => opt.MapFrom(src => src.Employer.CompanyName))
+                .ReverseMap();
             CreateMap<CreateJobPostingCommand, JobPosting>();
             CreateMap<UpdateJobPostingCommand, JobPosting>();
             CreateMap<JobPosting, JobPostingOverviewDto>().ReverseMap();
+
+            CreateMap<JobApplication, JobApplicatinForJobSeekerDto>();
 
 
             CreateMap<Education, EducationDto>().ReverseMap();

@@ -37,7 +37,7 @@ namespace JobPortal.API
 
 
             builder.Services.AddSignalR();
-            builder.Services.AddSingleton<IRealTimeService, RealTimeService>();
+            //builder.Services.AddSingleton<IRealTimeService, RealTimeService>();
 
             builder.Services.AddMassTransit(x =>
             {
