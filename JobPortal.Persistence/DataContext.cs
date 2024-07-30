@@ -31,6 +31,7 @@ namespace JobPortal.Persistence
 
         public DbSet<Photo> Photos { get; set; }
 
+        public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
