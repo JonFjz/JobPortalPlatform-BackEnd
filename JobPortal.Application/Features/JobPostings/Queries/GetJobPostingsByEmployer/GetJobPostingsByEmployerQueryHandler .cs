@@ -5,6 +5,8 @@ using JobPortal.Domain.Entities;
 using MediatR;
 using JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings;
 using JobPortal.Application.Helpers.Models.Pagination;
+using Microsoft.EntityFrameworkCore;
+using JobPortal.Domain.Enums;
 
 namespace JobPortal.Application.Features.JobPostings.Queries
 {
@@ -28,10 +30,12 @@ namespace JobPortal.Application.Features.JobPostings.Queries
                 .CountByConditionAsync(jp => jp.EmployerId == request.EmployerId);
 
             var jobPostings = await _unitOfWork.Repository<JobPosting>()
-                .GetPagedByConditionAsync(
-                    jp => jp.EmployerId == request.EmployerId,
-                    (request.PageNumber - 1) * request.PageSize,
-                    request.PageSize);
+                .GetByCondition(jp => jp.EmployerId == request.EmployerId && jp.ClosingDate > DateTime.Now)
+                .OrderByDescending(jp => jp.SubscriptionStatus == SubscriptionStatus.Active) 
+                .ThenByDescending(jp => jp.DatePosted)
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync();
 
             var jobPostingDtos = _mapper.Map<List<JobPostingOverviewDto>>(jobPostings);
 

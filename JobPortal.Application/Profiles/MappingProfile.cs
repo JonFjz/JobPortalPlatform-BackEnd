@@ -14,6 +14,7 @@ using JobPortal.Application.Features.JobSeeker.Commands.UpdateJobSeeker;
 using JobPortal.Application.Features.JobSeeker.Dtos;
 using JobPortal.Application.Features.Photos.Dtos;
 using JobPortal.Application.Features.Resumes.Dtos;
+using JobPortal.Application.Features.Reviews.Dtos;
 using JobPortal.Application.Features.WorkExperiences.Commands.CreateWorkExperience;
 using JobPortal.Application.Features.WorkExperiences.Commands.UpdateWorkExperience;
 using JobPortal.Application.Features.WorkExperiences.Dtos;
@@ -71,6 +72,8 @@ namespace JobPortal.Application.Profiles
             .ForMember(dest => dest.JobPostingId, opt => opt.MapFrom(src => src.JobPosting.Id))
             .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.JobPosting.Title))
             .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.JobPosting.Employer.CompanyName));
+
+            CreateMap<Review, ReviewDto>().ReverseMap();
         }
     }
 }

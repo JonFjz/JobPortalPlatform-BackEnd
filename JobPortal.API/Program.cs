@@ -8,6 +8,9 @@ using System.Security.Claims;
 using System.Runtime.Loader;
 using JobPortal.Worker;
 using MassTransit;
+using JobPortal.Application.Helpers.Models.Email;
+using JobPortal.Infrastructure.Email;
+using JobPortal.Infrastructure.RealTime;
 
 namespace JobPortal.API
 {
@@ -32,6 +35,9 @@ namespace JobPortal.API
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
 
+
+            builder.Services.AddSignalR();
+            builder.Services.AddSingleton<IRealTimeService, RealTimeService>();
 
             builder.Services.AddMassTransit(x =>
             {
@@ -74,9 +80,11 @@ namespace JobPortal.API
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("https://localhost:7136")
+                    builder.WithOrigins("https://localhost:7136", "http://localhost:5500", "http://127.0.0.1:5500")
                            .AllowAnyMethod()
-                           .AllowAnyHeader();
+                           .AllowAnyHeader()
+                           .AllowCredentials();
+
                 });
             });
 
@@ -96,6 +104,8 @@ namespace JobPortal.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.MapHub<RealTimeHub>("/realtimehub");
 
             app.UseCors();
             app.UseRouting();

@@ -33,6 +33,7 @@
     <None Remove="Features\Photos\Queries\GetPhoto\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Features\Ratings\Dtos\" />
     <Folder Include="Features\Photos\" />
     <Folder Include="Features\Photos\Commands\" />
     <Folder Include="Features\Photos\Dtos\" />
