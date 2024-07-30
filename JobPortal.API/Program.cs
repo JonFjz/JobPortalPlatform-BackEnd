@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Runtime.Loader;
+using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Worker;
 using MassTransit;
 using JobPortal.Application.Helpers.Models.Email;
 using JobPortal.Infrastructure.Email;
+using JobPortal.Infrastructure.RealTime;
 
 namespace JobPortal.API
 {
@@ -36,7 +38,7 @@ namespace JobPortal.API
 
 
             builder.Services.AddSignalR();
-            //builder.Services.AddSingleton<IRealTimeService, RealTimeService>();
+            builder.Services.AddSingleton<IRealTimeService, RealTimeService>();
 
             builder.Services.AddMassTransit(x =>
             {
@@ -104,7 +106,7 @@ namespace JobPortal.API
                 app.UseSwaggerUI();
             }
 
-        //    app.MapHub<RealTimeHub>("/realtimehub");
+            app.MapHub<RealTimeHub>("/realtimehub");
 
             app.UseCors();
             app.UseRouting();

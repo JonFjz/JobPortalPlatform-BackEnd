@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JobPortal.Application.Features.Reviews.Dtos;
 
 namespace JobPortal.Application.Features.Reviews.Commands.CreateReview
 {
@@ -17,13 +18,14 @@ namespace JobPortal.Application.Features.Reviews.Commands.CreateReview
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IClaimsPrincipalAccessor _claimsPrincipalAccessor;
+        private readonly IRealTimeService _realTimeService;
         
-        public CreateReviewCommandHandler(IMapper mapper,IUnitOfWork unitOfWork, IClaimsPrincipalAccessor claimsPrincipalAccessor)
+        public CreateReviewCommandHandler(IMapper mapper,IUnitOfWork unitOfWork, IClaimsPrincipalAccessor claimsPrincipalAccessor,IRealTimeService realTimeService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _claimsPrincipalAccessor = claimsPrincipalAccessor;
-           
+            _realTimeService = realTimeService;
         }
 
         public async Task<int> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
@@ -35,10 +37,11 @@ namespace JobPortal.Application.Features.Reviews.Commands.CreateReview
                 JobSeeker = jobSeeker,
                 EmployerId = request.EmployerId
             };
-            
 
+            var reviewDto = _mapper.Map<ReviewDto>(reviewToCreate);
             await _unitOfWork.Repository<Review>().CreateAsync(reviewToCreate);
-            _unitOfWork.Complete(); 
+            _unitOfWork.Complete();
+            await _realTimeService.NotifyNewReview(request.EmployerId, reviewDto);
             return reviewToCreate.Id;
         }
     }
