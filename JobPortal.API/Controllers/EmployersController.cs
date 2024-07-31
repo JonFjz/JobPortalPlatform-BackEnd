@@ -1,10 +1,12 @@
 ﻿using JobPortal.API.Controllers.Base;
 using JobPortal.Application.Features.Employers.Commands.UpdateEmployerProfile;
+using JobPortal.Application.Features.Employers.Queries.GetEmployerById;
 using JobPortal.Application.Features.Employers.Queries.GetEmployerProfile;
 using JobPortal.Application.Features.Employers.Queries.GetEmployersByIndustry;
 using JobPortal.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
@@ -44,6 +46,21 @@ namespace JobPortal.API.Controllers
             return Ok(userDetails);
         }
 
+        [Authorize(Policy = "JobSeeker")]
+        [HttpGet("{employerId}")]
+        public async Task<IActionResult> GetEmployerById(int employerId)
+        {
+            try
+            {
+                var employer = await _mediator.Send(new GetEmployerByIdQuery(employerId));
+                return Ok(employer);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
+        }
         [HttpPut("profile")]
         public async Task<IActionResult> UpdateProfile([FromBody] UpdateEmployerProfileCommand command)
         {
