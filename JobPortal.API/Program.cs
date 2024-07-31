@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Runtime.Loader;
 using JobPortal.Application.Contracts.Infrastructure;
-using JobPortal.Worker;
 using MassTransit;
 using JobPortal.Application.Helpers.Models.Email;
 using JobPortal.Infrastructure.Email;
@@ -17,6 +16,7 @@ using FluentValidation.AspNetCore;
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting.Validator;
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
 using JobPortal.Application.Features.Educations.Commands.CreateEducation.Validator;
+using JobPortal.Worker.Services;
 
 namespace JobPortal.API
 {

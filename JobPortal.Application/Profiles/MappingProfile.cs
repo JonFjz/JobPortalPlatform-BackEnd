@@ -45,6 +45,7 @@ namespace JobPortal.Application.Profiles
 
             CreateMap<CreateJobPostingCommand, JobPosting>();
             CreateMap<UpdateJobPostingCommand, JobPosting>();
+            CreateMap<JobPosting, JobPostingOverviewDto>().ReverseMap();
 
             CreateMap<JobApplication, JobApplicatinForJobSeekerDto>()
             .ForMember(dest => dest.JobPosting, opt => opt.MapFrom(src => src.JobPosting));

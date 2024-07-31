@@ -4,7 +4,7 @@ using JobPortal.Domain.Entities;
 using JobPortal.Domain.Enums;
 using MassTransit;
 
-namespace JobPortal.Worker
+namespace JobPortal.Worker.Services
 {
 
     public class JobPostingExpiryService : BackgroundService
@@ -23,7 +23,7 @@ namespace JobPortal.Worker
             while (!stoppingToken.IsCancellationRequested)
             {
                 await CheckExpiredJobPostings();
-                await Task.Delay(TimeSpan.FromSeconds(7), stoppingToken); 
+                await Task.Delay(TimeSpan.FromSeconds(7), stoppingToken);
             }
         }
 

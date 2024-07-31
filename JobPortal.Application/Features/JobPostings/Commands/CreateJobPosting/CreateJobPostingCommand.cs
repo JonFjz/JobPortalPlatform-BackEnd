@@ -11,6 +11,7 @@ namespace JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting
         public WorkLevel WorkLevel { get; set; }
         public string Description { get; set; }
         public string Responsibilities { get; set; }
+        public string RequiredSkills { get; set; }
         public string NotificationEmail { get; set; }
 
     }

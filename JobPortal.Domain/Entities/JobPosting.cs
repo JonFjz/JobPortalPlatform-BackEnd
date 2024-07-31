@@ -10,6 +10,7 @@ namespace JobPortal.Domain.Entities
         public DateTime DatePosted { get; set; } = DateTime.Now;
         public DateTime ClosingDate { get; set; }
         public string Responsibilities { get; set; }
+        public string RequiredSkills { get; set; }
         public WorkType WorkType { get; set; } 
         public WorkLevel WorkLevel { get; set; }
         public string NotificationEmail { get; set; } 
