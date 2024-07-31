@@ -16,6 +16,7 @@
 	  <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
 	  <PackageReference Include="Stripe.net" Version="45.4.0" />
 	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
+	  <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,12 @@
     <None Remove="Features\Photos\Commands\DeletePhoto\" />
     <None Remove="Features\Photos\Commands\UploadPhoto\" />
     <None Remove="Features\Photos\Queries\GetPhoto\" />
+    <None Remove="Features\JobPostings\Commands\CreateJobPosting\Validator\" />
+    <None Remove="Features\Educations\Commands\CreateEducation\Validator\" />
+    <None Remove="Features\Ratings\Commands\CreateRating\Validator\" />
+    <None Remove="Features\Reviews\Commands\CreateReview\Validator\" />
+    <None Remove="Features\Skills\Commands\CreateSkill\Validator\" />
+    <None Remove="Features\WorkExperiences\Commands\CreateWorkExperience\Validator\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Ratings\Dtos\" />
@@ -41,5 +48,11 @@
     <Folder Include="Features\Photos\Commands\DeletePhoto\" />
     <Folder Include="Features\Photos\Commands\UploadPhoto\" />
     <Folder Include="Features\Photos\Queries\GetPhoto\" />
+    <Folder Include="Features\JobPostings\Commands\CreateJobPosting\Validator\" />
+    <Folder Include="Features\Educations\Commands\CreateEducation\Validator\" />
+    <Folder Include="Features\Ratings\Commands\CreateRating\Validator\" />
+    <Folder Include="Features\Reviews\Commands\CreateReview\Validator\" />
+    <Folder Include="Features\Skills\Commands\CreateSkill\Validator\" />
+    <Folder Include="Features\WorkExperiences\Commands\CreateWorkExperience\Validator\" />
   </ItemGroup>
 </Project>

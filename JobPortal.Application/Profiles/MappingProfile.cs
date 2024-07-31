@@ -68,8 +68,7 @@ namespace JobPortal.Application.Profiles
             CreateMap<CreateWorkExperienceCommand, WorkExperience>();
             CreateMap<UpdateWorkExperienceCommand, WorkExperience>().ReverseMap();
 
-
-
+          
             CreateMap<Resume, ResumeDto>().ReverseMap();
 
             CreateMap<Photo, PhotoDto>().ReverseMap();

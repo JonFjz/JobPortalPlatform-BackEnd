@@ -12,6 +12,11 @@ using MassTransit;
 using JobPortal.Application.Helpers.Models.Email;
 using JobPortal.Infrastructure.Email;
 using JobPortal.Infrastructure.RealTime;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting.Validator;
+using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
+using JobPortal.Application.Features.Educations.Commands.CreateEducation.Validator;
 
 namespace JobPortal.API
 {
@@ -92,6 +97,12 @@ namespace JobPortal.API
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddAdvancedDependencyInjection();
+
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateEducationCommandValidator>();
+
+
+
 
             builder.Services.Scan(p => p.FromAssemblies(assemblies)
                 .AddClasses()
