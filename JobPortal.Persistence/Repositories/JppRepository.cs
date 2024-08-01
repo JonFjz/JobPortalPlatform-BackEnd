@@ -56,7 +56,9 @@ namespace JobPortal.Persistence.Repositories
         }
         public async Task<List<Tentity>> GetByConditionAsync(Expression<Func<Tentity, bool>> expression)
         {
-            return await Task.FromResult(_dbContext.Set<Tentity>().Where(expression).ToList());
+            return await _dbContext.Set<Tentity>()
+                .Where(expression)
+                .ToListAsync();
         }
         public IQueryable<Tentity> GetByCondition(Expression<Func<Tentity, bool>> expression)
         {

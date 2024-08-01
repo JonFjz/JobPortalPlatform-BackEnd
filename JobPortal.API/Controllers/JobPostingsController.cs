@@ -2,8 +2,9 @@
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.DeleteJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting;
-using JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings;
 using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById;
+using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingsByEmployerId;
+using JobPortal.Application.Features.JobPostings.Queries.GetMyJobPosting;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -49,10 +50,26 @@ namespace JobPortal.API.Controllers
         [HttpGet("by-employer/{employerId}")]
         public async Task<IActionResult> GetJobPostingsByEmployer(int employerId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var jobPostingsByEmployer = await _mediator.Send(new GetJobPostingsByEmployerQuery(employerId, pageNumber, pageSize));
+            var jobPostingsByEmployer = await _mediator.Send(new GetJobPostingsByEmployerIdQuery(employerId, pageNumber, pageSize));
             return Ok(jobPostingsByEmployer);
         }
-
+        [HttpGet("my-premium-job-postings")]
+        [Authorize(Policy = "Employer")]
+        public async Task<IActionResult> GetMyPremiumJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            
+            var jobPostings = await _mediator.Send(new GetMyPremiumJobPostingQuery(pageNumber, pageSize));
+            return Ok(jobPostings);
+        }
+        
+        [HttpGet("my-job-postings")]
+        [Authorize(Policy = "Employer")]
+        public async Task<IActionResult> GetMyJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            
+            var jobPostings = await _mediator.Send(new GetMyJobPostingQuery(pageNumber, pageSize));
+            return Ok(jobPostings);
+        }
 
         [Authorize(Policy = "Employer")]
         [HttpDelete("{id}")]

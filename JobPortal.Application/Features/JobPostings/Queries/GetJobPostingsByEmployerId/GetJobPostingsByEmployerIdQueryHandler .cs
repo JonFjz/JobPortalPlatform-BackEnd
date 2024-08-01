@@ -1,27 +1,26 @@
 ﻿using AutoMapper;
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Application.Features.JobPostings.Dtos;
-using JobPortal.Domain.Entities;
-using MediatR;
-using JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings;
 using JobPortal.Application.Helpers.Models.Pagination;
-using Microsoft.EntityFrameworkCore;
+using JobPortal.Domain.Entities;
 using JobPortal.Domain.Enums;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace JobPortal.Application.Features.JobPostings.Queries
+namespace JobPortal.Application.Features.JobPostings.Queries.GetJobPostingsByEmployerId
 {
-    public class GetJobPostingsByEmployerQueryHandler : IRequestHandler<GetJobPostingsByEmployerQuery, PagedResult<JobPostingOverviewDto>>
+    public class GetJobPostingsByEmployerIdQueryHandler : IRequestHandler<GetJobPostingsByEmployerIdQuery, PagedResult<JobPostingOverviewDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetJobPostingsByEmployerQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetJobPostingsByEmployerIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task<PagedResult<JobPostingOverviewDto>> Handle(GetJobPostingsByEmployerQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<JobPostingOverviewDto>> Handle(GetJobPostingsByEmployerIdQuery request, CancellationToken cancellationToken)
         {
             if (request.PageNumber <= 0) request.PageNumber = 1;
             if (request.PageSize <= 0) request.PageSize = 10;

@@ -3,6 +3,7 @@ using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById
 {
@@ -18,7 +19,10 @@ namespace JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById
         }
         public async Task<JobPostingDto> Handle(GetJobPostingByIdQuery request, CancellationToken cancellationToken)
         {
-            var jobPosting = await _unitOfWork.Repository<JobPosting>().GetByIdAsync(e => e.Id == request.Id);
+            var jobPosting = await _unitOfWork.Repository<JobPosting>()
+                .GetByCondition(e => e.Id == request.Id)
+                .Include(x=>x.Employer)
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (jobPosting == null)
             {

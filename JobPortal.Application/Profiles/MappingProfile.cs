@@ -87,6 +87,9 @@ namespace JobPortal.Application.Profiles
             .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.JobPosting.Employer.CompanyName));
 
             CreateMap<Review, ReviewDto>().ReverseMap();
+            
+            CreateMap<JobPosting, MyPremiumJobPostingDto>().ReverseMap();
+            CreateMap<JobPosting, MyJobPostingDto>().ReverseMap();
         }
     }
 }
