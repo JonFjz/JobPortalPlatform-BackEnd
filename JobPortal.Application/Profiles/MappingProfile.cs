@@ -8,6 +8,7 @@ using JobPortal.Application.Features.Employers.Dtos;
 using JobPortal.Application.Features.JobApplications.Command.ApplyToJob;
 using JobPortal.Application.Features.JobApplications.Dtos;
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
+using JobPortal.Application.Features.JobPostings.Commands.SearchJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting;
 using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Application.Features.JobSeeker.Commands.UpdateJobSeeker;
@@ -45,6 +46,7 @@ namespace JobPortal.Application.Profiles
 
             CreateMap<CreateJobPostingCommand, JobPosting>();
             CreateMap<UpdateJobPostingCommand, JobPosting>();
+            CreateMap<SearchJobPostingCommand, JobPosting>();
             CreateMap<JobPosting, JobPostingOverviewDto>().ReverseMap();
 
             CreateMap<JobApplication, JobApplicatinForJobSeekerDto>()

@@ -2,7 +2,7 @@
 
 namespace JobPortal.Application.Features.JobPostings.Commands.DeleteJobPosting
 {
-    public class DeleteJobPostingCommand : IRequest
+    public class DeleteJobPostingCommand : IRequest<Unit>
     {
         public int Id { get; set; }
 

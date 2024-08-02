@@ -6,20 +6,22 @@ using MediatR;
 
 namespace JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting
 {
-    public class UpdateJobPostingCommandHandler : IRequestHandler<UpdateJobPostingCommand>
+    public class UpdateJobPostingCommandHandler : IRequestHandler<UpdateJobPostingCommand, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IClaimsPrincipalAccessor _claimsPrincipalAccessor;
         private readonly IMapper _mapper;
+        private readonly ISearchService _searchService;
 
-        public UpdateJobPostingCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IClaimsPrincipalAccessor claimsPrincipalAccessor)
+        public UpdateJobPostingCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IClaimsPrincipalAccessor claimsPrincipalAccessor, ISearchService searchService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _claimsPrincipalAccessor = claimsPrincipalAccessor;
+            _searchService = searchService;
         }
 
-        public async Task Handle(UpdateJobPostingCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateJobPostingCommand request, CancellationToken cancellationToken)
         {
             var employer = await _claimsPrincipalAccessor.GetCurrentEmployerAsync();
 
@@ -35,6 +37,13 @@ namespace JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting
             await _unitOfWork.Repository<JobPosting>().UpdateAsync(jobPosting);
             _unitOfWork.Complete();
 
+            var updateSuccess = await _searchService.UpdateEntry(jobPosting);
+            if (!updateSuccess)
+            {
+                Console.WriteLine("Failed to update job posting in Elasticsearch.");
+            }
+
+            return Unit.Value;
         }
     }
 }

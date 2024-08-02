@@ -38,6 +38,7 @@
     <None Remove="Features\Reviews\Commands\CreateReview\Validator\" />
     <None Remove="Features\Skills\Commands\CreateSkill\Validator\" />
     <None Remove="Features\WorkExperiences\Commands\CreateWorkExperience\Validator\" />
+    <None Remove="Features\JobPostings\Commands\SearchJobPosting\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Ratings\Dtos\" />
@@ -54,5 +55,6 @@
     <Folder Include="Features\Reviews\Commands\CreateReview\Validator\" />
     <Folder Include="Features\Skills\Commands\CreateSkill\Validator\" />
     <Folder Include="Features\WorkExperiences\Commands\CreateWorkExperience\Validator\" />
+    <Folder Include="Features\JobPostings\Commands\SearchJobPosting\" />
   </ItemGroup>
 </Project>

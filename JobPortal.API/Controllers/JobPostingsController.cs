@@ -1,10 +1,19 @@
 ﻿using JobPortal.API.Controllers.Base;
+using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.DeleteJobPosting;
+using JobPortal.Application.Features.JobPostings.Commands.SearchJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting;
+<<<<<<< Updated upstream
 using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById;
 using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingsByEmployerId;
 using JobPortal.Application.Features.JobPostings.Queries.GetMyJobPosting;
+=======
+using JobPortal.Application.Features.JobPostings.Dtos;
+using JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings;
+using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById;
+using JobPortal.Domain.Entities;
+>>>>>>> Stashed changes
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +24,12 @@ namespace JobPortal.API.Controllers
     public class JobPostingsController : BaseApiController
     {
         private readonly IMediator _mediator;
-        public JobPostingsController(IMediator mediator)
+        private readonly ISearchService _searchService;
+
+        public JobPostingsController(IMediator mediator, ISearchService searchService)
         {
             _mediator = mediator;
+            _searchService = searchService;
         }
 
 
@@ -78,5 +90,14 @@ namespace JobPortal.API.Controllers
             await _mediator.Send(new DeleteJobPostingCommand(id));
             return NoContent();
         }
+
+
+        [HttpGet("search")]
+        public async Task<ActionResult<List<JobPostingDto>>> Search(string searchTerm)
+        {
+            var result = await _mediator.Send(new SearchJobPostingCommand(searchTerm));
+            return Ok(result);
+        }
+
     }
 }

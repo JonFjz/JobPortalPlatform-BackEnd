@@ -1,4 +1,5 @@
-﻿using JobPortal.Domain.Enums;
+﻿using System.Text.Json.Serialization;
+using JobPortal.Domain.Enums;
 
 namespace JobPortal.Domain.Entities
 {
@@ -28,6 +29,7 @@ namespace JobPortal.Domain.Entities
 
 
         public int EmployerId { get; set; }
+        [JsonIgnore]
         public Employer Employer { get; set; }
 
         public ICollection<JobApplication> JobApplications { get; set; } = new List<JobApplication>();

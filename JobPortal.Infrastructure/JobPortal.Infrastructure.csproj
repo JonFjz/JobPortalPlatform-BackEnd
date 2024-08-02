@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="C:\Users\PC\.nuget\packages\microsoft.net.compilers\1.0.0\build\..\tools\**" />
+    <None Remove="Search\" />
   </ItemGroup>
 
 
@@ -26,6 +27,7 @@
 		<PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
 		<PackageReference Include="StackExchange.Redis" Version="2.8.0" />
 		<PackageReference Include="Stripe.net" Version="45.4.0" />
+		<PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.14.7" />
 	</ItemGroup>
 
 	
@@ -33,4 +35,7 @@
     <ProjectReference Include="..\JobPortal.Application\JobPortal.Application.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Search\" />
+	</ItemGroup>
 </Project>

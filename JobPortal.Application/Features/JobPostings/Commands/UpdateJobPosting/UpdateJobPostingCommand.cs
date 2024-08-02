@@ -2,7 +2,7 @@
 
 namespace JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting
 {
-    public class UpdateJobPostingCommand : IRequest
+    public class UpdateJobPostingCommand : IRequest<Unit>
     {
         public int Id { get; set; }
         public string Title { get; set; }
