@@ -6,7 +6,6 @@ using JobPortal.Application.Features.Employers.Queries.GetEmployersByIndustry;
 using JobPortal.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers

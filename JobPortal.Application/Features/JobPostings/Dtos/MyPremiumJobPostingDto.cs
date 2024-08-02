@@ -1,5 +1,4 @@
-﻿using JobPortal.Domain.Entities;
-using JobPortal.Domain.Enums;
+﻿using JobPortal.Domain.Enums;
 
 namespace JobPortal.Application.Features.JobPostings.Dtos;
 

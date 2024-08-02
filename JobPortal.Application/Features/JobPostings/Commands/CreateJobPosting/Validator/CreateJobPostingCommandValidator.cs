@@ -1,9 +1,8 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting.Validator
 {
-	public class CreateJobPostingCommandValidator : AbstractValidator<CreateJobPostingCommand>
+    public class CreateJobPostingCommandValidator : AbstractValidator<CreateJobPostingCommand>
     {
         public CreateJobPostingCommandValidator()
         {

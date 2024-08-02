@@ -1,6 +1,5 @@
 ﻿using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Application.Helpers.Models.Pagination;
-using JobPortal.Domain.Enums;
 using MediatR;
 
 namespace JobPortal.Application.Features.JobPostings.Queries.GetMyJobPosting;

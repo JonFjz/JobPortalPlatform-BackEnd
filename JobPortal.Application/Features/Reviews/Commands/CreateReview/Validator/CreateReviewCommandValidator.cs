@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace JobPortal.Application.Features.Reviews.Commands.CreateReview.Validator
 {

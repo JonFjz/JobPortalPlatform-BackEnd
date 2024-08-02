@@ -3,20 +3,29 @@ using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Domain.Entities;
 using JobPortal.Domain.Enums;
 using JobPortal.Infrastructure.Configurations;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Stripe;
 
 public class PaymentService : IPaymentService
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly PaymentSettings _paymentSettings;
+    private readonly IConfiguration _config;
     private const decimal DefaultStandardPrice = 100.00m;
 
-    public PaymentService(IUnitOfWork unitOfWork, IOptions<PaymentSettings> paymentSettings)
+    public PaymentService(IUnitOfWork unitOfWork, IConfiguration config)
     {
         _unitOfWork = unitOfWork;
-        _paymentSettings = paymentSettings.Value;
+        _config = config ?? throw new ArgumentNullException(nameof(config));
+
+        var stripeSecretKey = _config["Stripe:SecretKey"];
+        if (string.IsNullOrEmpty(stripeSecretKey))
+        {
+            throw new InvalidOperationException("Stripe SecretKey is not configured.");
+        }
+        StripeConfiguration.ApiKey = stripeSecretKey;
     }
+
 
     public async Task<JobPosting> UpgradeToPremium(int jobPostingId)
     {

@@ -4,23 +4,17 @@ using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.DeleteJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.SearchJobPosting;
 using JobPortal.Application.Features.JobPostings.Commands.UpdateJobPosting;
-<<<<<<< Updated upstream
 using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById;
 using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingsByEmployerId;
 using JobPortal.Application.Features.JobPostings.Queries.GetMyJobPosting;
-=======
 using JobPortal.Application.Features.JobPostings.Dtos;
-using JobPortal.Application.Features.JobPostings.Queries.GetAllJobPostings;
-using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById;
-using JobPortal.Domain.Entities;
->>>>>>> Stashed changes
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace JobPortal.API.Controllers
 {
-
     public class JobPostingsController : BaseApiController
     {
         private readonly IMediator _mediator;
@@ -65,6 +59,8 @@ namespace JobPortal.API.Controllers
             var jobPostingsByEmployer = await _mediator.Send(new GetJobPostingsByEmployerIdQuery(employerId, pageNumber, pageSize));
             return Ok(jobPostingsByEmployer);
         }
+
+
         [HttpGet("my-premium-job-postings")]
         [Authorize(Policy = "Employer")]
         public async Task<IActionResult> GetMyPremiumJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
@@ -74,6 +70,7 @@ namespace JobPortal.API.Controllers
             return Ok(jobPostings);
         }
         
+
         [HttpGet("my-job-postings")]
         [Authorize(Policy = "Employer")]
         public async Task<IActionResult> GetMyJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
@@ -82,6 +79,7 @@ namespace JobPortal.API.Controllers
             var jobPostings = await _mediator.Send(new GetMyJobPostingQuery(pageNumber, pageSize));
             return Ok(jobPostings);
         }
+
 
         [Authorize(Policy = "Employer")]
         [HttpDelete("{id}")]

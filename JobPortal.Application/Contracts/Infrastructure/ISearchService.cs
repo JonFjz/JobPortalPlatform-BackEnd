@@ -1,5 +1,4 @@
-﻿using System;
-using JobPortal.Domain.Entities;
+﻿using JobPortal.Domain.Entities;
 
 namespace JobPortal.Application.Contracts.Infrastructure
 {

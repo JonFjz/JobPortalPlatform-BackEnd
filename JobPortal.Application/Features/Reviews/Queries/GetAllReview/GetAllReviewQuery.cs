@@ -1,11 +1,6 @@
 ﻿using JobPortal.Application.Features.Reviews.Dtos;
 using JobPortal.Application.Helpers.Models.Pagination;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobPortal.Application.Features.Reviews.Queries.GetAllReview
 {

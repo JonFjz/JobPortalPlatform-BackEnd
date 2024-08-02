@@ -1,8 +1,4 @@
 ﻿using JobPortal.API.Controllers.Base;
-using JobPortal.Application.Features.Educations.Commands.DeleteEducation;
-using JobPortal.Application.Features.Educations.Commands.UpdateEducation;
-using JobPortal.Application.Features.Educations.Queries.GetAllEducations;
-using JobPortal.Application.Features.Educations.Queries.GetEducationById;
 using JobPortal.Application.Features.Reviews.Commands.CreateReview;
 using JobPortal.Application.Features.Reviews.Commands.DeleteReview;
 using JobPortal.Application.Features.Reviews.Commands.UpdateReview;
@@ -10,7 +6,6 @@ using JobPortal.Application.Features.Reviews.Queries.GetAllReview;
 using JobPortal.Application.Features.Reviews.Queries.GetReviewById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers

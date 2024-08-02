@@ -1,6 +1,4 @@
-﻿using System;
-using JobPortal.Application.Features.JobPostings.Dtos;
-using JobPortal.Domain.Entities;
+﻿using JobPortal.Application.Features.JobPostings.Dtos;
 using MediatR;
 
 namespace JobPortal.Application.Features.JobPostings.Commands.SearchJobPosting

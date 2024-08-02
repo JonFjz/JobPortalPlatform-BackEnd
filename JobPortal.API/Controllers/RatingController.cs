@@ -6,7 +6,6 @@ using JobPortal.Application.Features.Ratings.Queries.GetRatingByEmployerId;
 
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers

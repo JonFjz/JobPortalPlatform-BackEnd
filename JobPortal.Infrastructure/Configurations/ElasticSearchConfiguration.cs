@@ -1,5 +1,4 @@
-﻿using System;
-namespace JobPortal.Infrastructure.Configurations
+﻿namespace JobPortal.Infrastructure.Configurations
 {
     public static class ElasticSearchConfiguration
     {

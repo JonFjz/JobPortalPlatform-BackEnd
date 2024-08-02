@@ -28,7 +28,6 @@ namespace JobPortal.Infrastructure.Extensions
             services.Configure<BlobStorageSettings>(configuration.GetSection("AzureBlobStorage"));
             services.Configure<Auth0Settings>(configuration.GetSection("Auth0"));
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
-            services.Configure<PaymentSettings>(configuration.GetSection("Stripe"));
 
 
 
