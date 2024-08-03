@@ -45,7 +45,7 @@ namespace JobPortal.API
                 x.AddConsumer<JobPostingExpiredConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("rabbitmq://localhost");
+                    cfg.Host("rabbitmq://34.141.119.232");
                     cfg.ConfigureEndpoints(context);
                 });
             });
