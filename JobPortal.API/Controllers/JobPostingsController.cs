@@ -69,18 +69,18 @@ namespace JobPortal.API.Controllers
         [Cached(300)]
         public async Task<IActionResult> GetMyPremiumJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            
+
             var jobPostings = await _mediator.Send(new GetMyPremiumJobPostingQuery(pageNumber, pageSize));
             return Ok(jobPostings);
         }
-        
+
 
         [HttpGet("my-job-postings")]
         [Authorize(Policy = "Employer")]
         [Cached(300)]
         public async Task<IActionResult> GetMyJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            
+
             var jobPostings = await _mediator.Send(new GetMyJobPostingQuery(pageNumber, pageSize));
             return Ok(jobPostings);
         }

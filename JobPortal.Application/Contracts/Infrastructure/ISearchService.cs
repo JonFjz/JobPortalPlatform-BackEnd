@@ -1,14 +1,14 @@
-﻿using JobPortal.Domain.Entities;
+using JobPortal.Application.Features.JobPostings.Dtos;
+using JobPortal.Domain.Entities;
 
 namespace JobPortal.Application.Contracts.Infrastructure
 {
     public interface ISearchService
     {
-        Task<List<JobPosting>> Search(string searchTerm);
-        Task<bool> Index(JobPosting jobPosting);
+        Task<List<JobPostingDto>> Search(string searchTerm);
+        Task<bool> Index(JobPostingDto jobPosting);
         Task<bool> UpdateEntry(JobPosting jobPosting);
         Task<bool> DeleteEntry(int id);
 
     }
 }
-

@@ -2,8 +2,10 @@
 using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Application.Features.JobPostings.Commands.CreateJobPosting;
+using JobPortal.Application.Features.JobPostings.Dtos;
 using JobPortal.Domain.Entities;
 using MediatR;
+using Newtonsoft.Json;
 
 public class CreateJobPostingCommandHandler : IRequestHandler<CreateJobPostingCommand, int>
 {
@@ -23,22 +25,28 @@ public class CreateJobPostingCommandHandler : IRequestHandler<CreateJobPostingCo
     public async Task<int> Handle(CreateJobPostingCommand request, CancellationToken cancellationToken)
     {
         var employer = await _claimsPrincipalAccessor.GetCurrentEmployerAsync();
-
         var jobPostingToCreate = _mapper.Map<JobPosting>(request);
-        jobPostingToCreate.EmployerId = employer.Id;
 
-       
+        jobPostingToCreate.Employer = employer;
+
         await _unitOfWork.Repository<JobPosting>().CreateAsync(jobPostingToCreate);
-         _unitOfWork.Complete(); 
+        _unitOfWork.Complete();
 
-        var indexingSuccess = await _searchService.Index(jobPostingToCreate);
+        var jobPostingDto = _mapper.Map<JobPostingDto>(jobPostingToCreate);
+
+
+        jobPostingDto.CompanyName = employer.CompanyName;
+
+        Console.WriteLine($"JobPostingDto: {JsonConvert.SerializeObject(jobPostingDto)}");
+
+        var indexingSuccess = await _searchService.Index(jobPostingDto);
 
         if (!indexingSuccess)
         {
-          
             Console.WriteLine("Failed to index job posting.");
         }
 
         return jobPostingToCreate.Id;
     }
+
 }

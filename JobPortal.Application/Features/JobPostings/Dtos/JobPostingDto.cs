@@ -2,6 +2,7 @@
 {
     public class JobPostingDto
     {
+        public int Id { get; set; }
         public int EmployerId { get; set; }
         public String CompanyName { get; set; }
         public string Title { get; set; }
