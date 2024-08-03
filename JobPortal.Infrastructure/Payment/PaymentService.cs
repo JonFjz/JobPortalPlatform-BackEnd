@@ -2,9 +2,7 @@
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Domain.Entities;
 using JobPortal.Domain.Enums;
-using JobPortal.Infrastructure.Configurations;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Stripe;
 
 public class PaymentService : IPaymentService

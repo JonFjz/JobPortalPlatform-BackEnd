@@ -23,7 +23,6 @@ namespace JobPortal.Infrastructure.Extensions
                 options.InstanceName = "JPPInstance";
             });
 
-            services.AddSingleton<ICacheService, CacheService>();
 
             services.Configure<BlobStorageSettings>(configuration.GetSection("AzureBlobStorage"));
             services.Configure<Auth0Settings>(configuration.GetSection("Auth0"));
@@ -37,7 +36,8 @@ namespace JobPortal.Infrastructure.Extensions
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IAuth0Service, Auth0Service>();
             services.AddSingleton<IBlobStorageService, BlobStorageService>();
-            services.AddTransient<IEmailService, EmailService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddSingleton<ICacheService, CacheService>();
 
             return services;
         }

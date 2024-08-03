@@ -11,6 +11,7 @@ using JobPortal.Application.Features.JobPostings.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using JobPortal.Application.Helpers.Models.Cashe;
 
 
 namespace JobPortal.API.Controllers
@@ -46,6 +47,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("{id}")]
+        [Cached(300)]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var jobPosting = await _mediator.Send(new GetJobPostingByIdQuery(id));
@@ -54,6 +56,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("by-employer/{employerId}")]
+        [Cached(300)]
         public async Task<IActionResult> GetJobPostingsByEmployer(int employerId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var jobPostingsByEmployer = await _mediator.Send(new GetJobPostingsByEmployerIdQuery(employerId, pageNumber, pageSize));
@@ -63,6 +66,7 @@ namespace JobPortal.API.Controllers
 
         [HttpGet("my-premium-job-postings")]
         [Authorize(Policy = "Employer")]
+        [Cached(300)]
         public async Task<IActionResult> GetMyPremiumJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             
@@ -73,6 +77,7 @@ namespace JobPortal.API.Controllers
 
         [HttpGet("my-job-postings")]
         [Authorize(Policy = "Employer")]
+        [Cached(300)]
         public async Task<IActionResult> GetMyJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             

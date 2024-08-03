@@ -1,39 +1,38 @@
 ﻿using JobPortal.Application.Contracts.Infrastructure;
-using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
+using StackExchange.Redis;
+using System.Text.Json;
 
 namespace JobPortal.Infrastructure.Cache
 {
     public class CacheService : ICacheService
     {
-        private readonly IDistributedCache _cache;
-
-        public CacheService(IDistributedCache cache)
+        private readonly IDatabase _database;
+        public CacheService(IConnectionMultiplexer redis)
         {
-            _cache = cache;
+            _database = redis.GetDatabase();
         }
 
-        public async Task SetCacheAsync<T>(string key, T value, TimeSpan expiration)
+        public async Task CacheResponseAsync(string key, object response, TimeSpan expiry)
         {
-            var serializeValue=JsonConvert.SerializeObject(value);
-            var options = new DistributedCacheEntryOptions
+            if (response == null) return;
+
+            var options = new JsonSerializerOptions
             {
-                AbsoluteExpirationRelativeToNow = expiration
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
-            await _cache.SetStringAsync(key, serializeValue, options);
 
-           
+            var serialisedResponse = JsonSerializer.Serialize(response, options);
+
+            await _database.StringSetAsync(key, serialisedResponse, expiry);
         }
 
-        public async Task<T?> GetCacheAsync<T>(string key)
+        public async Task<string> GetCachedResponse(string key)
         {
+            var cachedResponse = await _database.StringGetAsync(key);
 
-            var deserializeValue=JsonConvert.DeserializeObject<T>( await _cache.GetStringAsync(key));
-            if (deserializeValue == null)
-            { 
-                return default;
-            }
-            return deserializeValue;
+            if (cachedResponse.IsNullOrEmpty) return null;
+
+            return cachedResponse;
         }
     }
 }
