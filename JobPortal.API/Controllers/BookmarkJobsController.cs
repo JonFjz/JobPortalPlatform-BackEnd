@@ -1,6 +1,7 @@
 ﻿using JobPortal.Application.Features.BookmarkJobs.Commands.CreateBookmarkJob;
 using JobPortal.Application.Features.BookmarkJobs.Commands.RemoveBookmarkJob;
 using JobPortal.Application.Features.BookmarkJobs.Queries;
+using JobPortal.Application.Helpers.Models.Cashe;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,7 @@ namespace JobPortal.API.Controllers
 
         [Authorize(Policy = "JobSeeker")]
         [HttpGet("bookmarked-jobs")]
+        [Cached(600)]
         public async Task<IActionResult> GetBookmarkedJobs()
         {
             var bookmarkedJobs = await _mediator.Send(new GetBookmarkedJobsQuery());

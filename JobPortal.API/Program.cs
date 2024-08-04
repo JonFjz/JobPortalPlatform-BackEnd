@@ -51,6 +51,16 @@ namespace JobPortal.API
             });
 
 
+            //builder.Services.AddMassTransit(x =>
+            //{
+            //    x.AddConsumer<JobPostingExpiredConsumer>();
+            //    x.UsingRabbitMq((context, cfg) =>
+            //    {
+            //        cfg.Host("rabbitmq://localhost");
+            //        cfg.ConfigureEndpoints(context);
+            //    });
+            //});
+
 
             builder.Services.AddHostedService<JobPostingExpiryService>();
 
@@ -111,6 +121,14 @@ namespace JobPortal.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
            // }
+
+
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
+
 
             app.MapHub<RealTimeHub>("/realtimehub");
 

@@ -30,7 +30,7 @@ namespace JobPortal.Application.Features.JobPostings.Queries.GetJobPostingsByEmp
 
             var jobPostings = await _unitOfWork.Repository<JobPosting>()
                 .GetByCondition(jp => jp.EmployerId == request.EmployerId && jp.ClosingDate > DateTime.Now)
-                .OrderByDescending(jp => jp.SubscriptionStatus == SubscriptionStatus.Active) 
+                .OrderByDescending(jp => jp.SubscriptionStatus == SubscriptionStatus.Active)
                 .ThenByDescending(jp => jp.DatePosted)
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)

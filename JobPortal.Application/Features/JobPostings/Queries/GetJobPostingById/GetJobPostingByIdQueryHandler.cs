@@ -1,35 +1,53 @@
 ﻿using AutoMapper;
+using JobPortal.Application.Contracts.Infrastructure;
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Application.Features.JobPostings.Dtos;
+using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById;
+using JobPortal.Application.Helpers.Models.Cashe;
 using JobPortal.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById
+internal class GetJobPostingByIdQueryHandler : IRequestHandler<GetJobPostingByIdQuery, JobPostingDto>
 {
-    internal class GetJobPostingByIdQueryHandler : IRequestHandler<GetJobPostingByIdQuery, JobPostingDto>
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+    private readonly ICacheService _cacheService;
+
+    public GetJobPostingByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper, ICacheService cacheService)
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+        _cacheService = cacheService;
+    }
 
-        public GetJobPostingByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public async Task<JobPostingDto> Handle(GetJobPostingByIdQuery request, CancellationToken cancellationToken)
+    {
+        var cacheKey = string.Format(CasheConstants.JobPostingById, request.Id);
+        var cachedResponse = await _cacheService.GetCachedResponse(cacheKey);
+
+        if (!string.IsNullOrEmpty(cachedResponse))
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            return _mapper.Map<JobPostingDto>(JsonConvert.DeserializeObject<JobPosting>(cachedResponse));
         }
-        public async Task<JobPostingDto> Handle(GetJobPostingByIdQuery request, CancellationToken cancellationToken)
+
+        var jobPosting = await _unitOfWork.Repository<JobPosting>()
+            .GetByCondition(e => e.Id == request.Id)
+            .Include(x => x.Employer)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (jobPosting == null)
         {
-            var jobPosting = await _unitOfWork.Repository<JobPosting>()
-                .GetByCondition(e => e.Id == request.Id)
-                .Include(x=>x.Employer)
-                .FirstOrDefaultAsync(cancellationToken);
-
-            if (jobPosting == null)
-            {
-                throw new KeyNotFoundException("Job Posting not found.");
-            }
-
-            return _mapper.Map<JobPostingDto>(jobPosting);
+            throw new KeyNotFoundException("Job Posting not found.");
         }
+
+        var jobPostingDto = _mapper.Map<JobPostingDto>(jobPosting);
+
+        await _cacheService.CacheResponseAsync(cacheKey, JsonConvert.SerializeObject(jobPosting), TimeSpan.FromMinutes(10));
+
+        return jobPostingDto;
     }
 }

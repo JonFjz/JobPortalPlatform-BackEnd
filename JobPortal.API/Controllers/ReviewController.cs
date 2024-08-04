@@ -4,6 +4,7 @@ using JobPortal.Application.Features.Reviews.Commands.DeleteReview;
 using JobPortal.Application.Features.Reviews.Commands.UpdateReview;
 using JobPortal.Application.Features.Reviews.Queries.GetAllReview;
 using JobPortal.Application.Features.Reviews.Queries.GetReviewById;
+using JobPortal.Application.Helpers.Models.Cashe;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobPortal.API.Controllers
 {
 
-
-    [Authorize]
     public class ReviewController :BaseApiController
     {
         private readonly IMediator _mediator;
@@ -38,6 +37,7 @@ namespace JobPortal.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Cached(600)]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var review = await _mediator.Send(new GetReviewByIdQuery(id));
@@ -46,6 +46,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("employer/{employerId}")]
+        [Cached(600)]
         public async Task<IActionResult> GetAll([FromRoute]int employerId,[FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var reviews = await _mediator.Send(new GetAllReviewQuery(employerId,pageNumber,pageSize));

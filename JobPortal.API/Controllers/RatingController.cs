@@ -3,7 +3,7 @@ using JobPortal.Application.Features.Ratings.Commands.CreateRating;
 using JobPortal.Application.Features.Ratings.Commands.DeleteRating;
 using JobPortal.Application.Features.Ratings.Commands.UpdateRating;
 using JobPortal.Application.Features.Ratings.Queries.GetRatingByEmployerId;
-
+using JobPortal.Application.Helpers.Models.Cashe;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +18,7 @@ namespace JobPortal.API.Controllers
         {
             _mediator = mediator;            
         }
+
 
         [Authorize(Policy = "JobSeeker")]
         [HttpPost]
@@ -35,10 +36,9 @@ namespace JobPortal.API.Controllers
             return NoContent();
         }
 
-       
-
 
         [HttpGet("employer/{employerId}")]
+        [Cached(600)]
         public async Task<IActionResult> GetRatingByEmployerId([FromRoute] int employerId)
         {
             var rating = await _mediator.Send(new GetRatingByEmployerIdQuery(employerId));

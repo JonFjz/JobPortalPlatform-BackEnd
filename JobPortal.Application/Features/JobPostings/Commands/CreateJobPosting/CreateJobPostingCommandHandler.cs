@@ -34,7 +34,6 @@ public class CreateJobPostingCommandHandler : IRequestHandler<CreateJobPostingCo
 
         var jobPostingDto = _mapper.Map<JobPostingDto>(jobPostingToCreate);
 
-
         jobPostingDto.CompanyName = employer.CompanyName;
 
         Console.WriteLine($"JobPostingDto: {JsonConvert.SerializeObject(jobPostingDto)}");

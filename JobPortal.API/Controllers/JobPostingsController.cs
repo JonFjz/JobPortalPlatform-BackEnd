@@ -56,7 +56,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("by-employer/{employerId}")]
-        [Cached(300)]
+        [Cached(600)]
         public async Task<IActionResult> GetJobPostingsByEmployer(int employerId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var jobPostingsByEmployer = await _mediator.Send(new GetJobPostingsByEmployerIdQuery(employerId, pageNumber, pageSize));
@@ -96,6 +96,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("search")]
+        [Cached(600)]
         public async Task<ActionResult<List<JobPostingDto>>> Search(string searchTerm)
         {
             var result = await _mediator.Send(new SearchJobPostingCommand(searchTerm));

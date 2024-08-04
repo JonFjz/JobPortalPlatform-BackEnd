@@ -32,7 +32,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("{jobPostingId}/applications")]
-        [Cached(300)]
+        [Cached(600)]
         public async Task<ActionResult<PagedResult<JobApplicationDto>>> GetJobApplications(int jobPostingId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var jobApplications = await _mediator.Send(new GetJobApplicationsQuery(jobPostingId, pageNumber, pageSize));
@@ -49,7 +49,7 @@ namespace JobPortal.API.Controllers
         }
 
         [HttpGet("by-jobseeker")]
-        [Cached(300)]
+        [Cached(600)]
         public async Task<ActionResult<PagedResult<JobApplicatinForJobSeekerDto>>> GetJobApplicationsByJobSeeker([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var jobApplications = await _mediator.Send(new GetJobApplicationByJobSeekerQuery(pageNumber, pageSize));
