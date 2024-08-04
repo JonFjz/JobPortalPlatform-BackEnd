@@ -8,17 +8,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
+    [Authorize(Policy = "JobSeeker")]
     [ApiController]
     [Authorize]
     public class BookmarkJobsController : ControllerBase
     {
+
         private readonly IMediator _mediator;
         public BookmarkJobsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [Authorize(Policy = "JobSeeker")]
+
         [HttpPost("bookmarks")]
         public async Task<IActionResult> AddBookmark([FromBody] CreateBookmarkJobCommand command)
         { 
@@ -26,7 +28,7 @@ namespace JobPortal.API.Controllers
             return Ok(new { JobPostingId = result });
         }
 
-        [Authorize(Policy = "JobSeeker")]
+
         [HttpDelete("bookmarks/{jobPostingId}")]
         public async Task<IActionResult> DeleteBookmark(int jobPostingId)
         {
@@ -34,7 +36,7 @@ namespace JobPortal.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Policy = "JobSeeker")]
+
         [HttpGet("bookmarked-jobs")]
         [Cached(600)]
         public async Task<IActionResult> GetBookmarkedJobs()

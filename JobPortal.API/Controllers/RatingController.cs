@@ -38,12 +38,12 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("employer/{employerId}")]
-        [Cached(600)]
         public async Task<IActionResult> GetRatingByEmployerId([FromRoute] int employerId)
         {
             var rating = await _mediator.Send(new GetRatingByEmployerIdQuery(employerId));
             return Ok(rating);
         }
+
 
         [Authorize(Policy = "JobSeeker")]
         [HttpDelete("{id}")]

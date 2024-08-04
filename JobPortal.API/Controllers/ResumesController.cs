@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy ="JobSeeker")]
     public class ResumesController : BaseApiController
     {
         private readonly IMediator _mediator;

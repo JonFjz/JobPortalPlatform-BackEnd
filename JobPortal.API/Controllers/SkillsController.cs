@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy ="JobSeeker")]
     public class SkillsController : BaseApiController
     {
         private readonly IMediator _mediator;

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy ="JobSeeker")]
     public class EducationsController : BaseApiController
     {
         private readonly IMediator _mediator;
@@ -34,6 +34,7 @@ namespace JobPortal.API.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)

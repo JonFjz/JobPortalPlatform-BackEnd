@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Authorize]
     public class EmployersController : BaseApiController
     {
 
@@ -39,11 +38,11 @@ namespace JobPortal.API.Controllers
             return Ok(industries);
         }
 
+        [Authorize(Policy = "Employer")]
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
-            var query = new GetEmployerProfileQuery();
-            var userDetails = await _mediator.Send(query);
+            var userDetails = await _mediator.Send(new GetEmployerProfileQuery());
             return Ok(userDetails);
         }
 
@@ -63,6 +62,8 @@ namespace JobPortal.API.Controllers
             }
             
         }
+
+        [Authorize(Policy = "Employer")]
         [HttpPut("profile")]
         public async Task<IActionResult> UpdateProfile([FromBody] UpdateEmployerProfileCommand command)
         {

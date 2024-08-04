@@ -8,15 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "JobSeeker")]
     public class JobSeekersController : BaseApiController
     {
         private readonly IMediator _mediator;
-        private readonly IBlobStorageService _blobService;
 
-        public JobSeekersController(IMediator mediator, IBlobStorageService blobService)
+        public JobSeekersController(IMediator mediator)
         {
-                _blobService = blobService;
                 _mediator = mediator;
         }
 

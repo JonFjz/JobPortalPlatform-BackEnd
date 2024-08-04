@@ -33,17 +33,10 @@ namespace JobPortal.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> GetToken([FromBody] Auth0TokenRequest tokenRequest)
+        public async Task<IActionResult> Login([FromBody] Auth0TokenRequest tokenRequest)
         {
             var result = await _auth0Service.GetTokenAsync(tokenRequest);
             return Ok(result);
         }
-
-
-
-
-
-
-
     }
 }

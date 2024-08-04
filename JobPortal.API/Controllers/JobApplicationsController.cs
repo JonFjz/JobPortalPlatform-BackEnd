@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Authorize]
     public class JobApplicationsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -22,7 +21,8 @@ namespace JobPortal.API.Controllers
             _mediator = mediator;
         }
 
-      
+
+        [Authorize(Policy ="JobSeeker")]
         [HttpPost("apply")]
         public async Task<IActionResult> Apply([FromForm] ApplyToJobCommand command)
         {
@@ -31,6 +31,7 @@ namespace JobPortal.API.Controllers
         }
 
 
+        [Authorize(Policy = "Employer")]
         [HttpGet("{jobPostingId}/applications")]
         [Cached(600)]
         public async Task<ActionResult<PagedResult<JobApplicationDto>>> GetJobApplications(int jobPostingId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
@@ -48,6 +49,8 @@ namespace JobPortal.API.Controllers
             return NoContent();
         }
 
+
+        [Authorize(Policy = "JobSeeker")]
         [HttpGet("by-jobseeker")]
         [Cached(600)]
         public async Task<ActionResult<PagedResult<JobApplicatinForJobSeekerDto>>> GetJobApplicationsByJobSeeker([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
