@@ -13,6 +13,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using JobPortal.Application.Features.Educations.Commands.CreateEducation.Validator;
 using JobPortal.Worker.Services;
+using JobPortal.Infrastructure.GoogleCalendar;
 
 namespace JobPortal.API
 {
@@ -36,7 +37,7 @@ namespace JobPortal.API
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
 
-
+            builder.Services.AddSingleton<IGoogleCalendarService, GoogleCalendarService>();
             builder.Services.AddSignalR();
             builder.Services.AddSingleton<IRealTimeService, RealTimeService>();
 

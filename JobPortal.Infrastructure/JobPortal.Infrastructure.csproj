@@ -16,6 +16,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.21.0" />
+		<PackageReference Include="Google.Apis" Version="1.68.0" />
+		<PackageReference Include="Google.Apis.Calendar.v3" Version="1.68.0.3473" />
+		<PackageReference Include="Google.Apis.Oauth2.v2" Version="1.68.0.1869" />
 		<PackageReference Include="Mailjet.Api" Version="3.0.0" />
 		<PackageReference Include="MassTransit" Version="8.2.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />

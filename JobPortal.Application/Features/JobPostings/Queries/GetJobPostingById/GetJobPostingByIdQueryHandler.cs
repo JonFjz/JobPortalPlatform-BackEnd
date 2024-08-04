@@ -26,14 +26,6 @@ internal class GetJobPostingByIdQueryHandler : IRequestHandler<GetJobPostingById
 
     public async Task<JobPostingDto> Handle(GetJobPostingByIdQuery request, CancellationToken cancellationToken)
     {
-        var cacheKey = string.Format(CasheConstants.JobPostingById, request.Id);
-        var cachedResponse = await _cacheService.GetCachedResponse(cacheKey);
-
-        if (!string.IsNullOrEmpty(cachedResponse))
-        {
-            return _mapper.Map<JobPostingDto>(JsonConvert.DeserializeObject<JobPosting>(cachedResponse));
-        }
-
         var jobPosting = await _unitOfWork.Repository<JobPosting>()
             .GetByCondition(e => e.Id == request.Id)
             .Include(x => x.Employer)
@@ -46,7 +38,6 @@ internal class GetJobPostingByIdQueryHandler : IRequestHandler<GetJobPostingById
 
         var jobPostingDto = _mapper.Map<JobPostingDto>(jobPosting);
 
-        await _cacheService.CacheResponseAsync(cacheKey, JsonConvert.SerializeObject(jobPosting), TimeSpan.FromMinutes(10));
 
         return jobPostingDto;
     }
