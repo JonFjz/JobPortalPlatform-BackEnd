@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.API.Controllers
 {
-    [Authorize(Policy ="JobSeeker")]
+    
     public class ResumesController : BaseApiController
     {
         private readonly IMediator _mediator;
@@ -19,7 +19,7 @@ namespace JobPortal.API.Controllers
         {
             _mediator = mediator;
         }
-
+        [Authorize(Policy ="JobSeeker")]
         [HttpPost("upload")]
         public async Task<IActionResult> Upload([FromForm] UploadResumeCommand command)
         {
@@ -27,7 +27,7 @@ namespace JobPortal.API.Controllers
             return Ok(resume);
         }
 
-
+        [Authorize(Policy ="JobSeeker")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -35,7 +35,7 @@ namespace JobPortal.API.Controllers
             return Ok(resume);
         }
 
-
+        [Authorize(Policy ="JobSeeker")]
         [HttpGet("download")]
         public async Task<IActionResult> Download()
         {
@@ -43,7 +43,7 @@ namespace JobPortal.API.Controllers
             return File(result.FileData, "application/octet-stream", result.FileName);
         }
 
-
+        [Authorize(Policy ="JobSeeker")]
         [HttpDelete("delete")]
         public async Task<IActionResult> Delete()
         {
@@ -52,7 +52,7 @@ namespace JobPortal.API.Controllers
         }
 
 
-
+        [Authorize(Policy ="Employer")]
         [HttpGet("{jobApplicationId}/download")]
         public async Task<IActionResult> Download(int jobApplicationId)
         {
