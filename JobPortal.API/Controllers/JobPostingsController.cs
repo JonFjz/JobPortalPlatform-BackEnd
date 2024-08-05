@@ -8,6 +8,7 @@ using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingById;
 using JobPortal.Application.Features.JobPostings.Queries.GetJobPostingsByEmployerId;
 using JobPortal.Application.Features.JobPostings.Queries.GetMyJobPosting;
 using JobPortal.Application.Features.JobPostings.Dtos;
+using JobPortal.Application.Features.JobPostings.Queries.GetRecommendJob;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -99,6 +100,14 @@ namespace JobPortal.API.Controllers
         {
             var result = await _mediator.Send(new SearchJobPostingCommand(searchTerm));
             return Ok(result);
+        }
+        
+        [Authorize(Policy = "JobSeeker")]
+        [HttpPost("recommendations")]
+        public async Task<IActionResult> RecommendJobs()
+        {
+            var recommendedJobs = await _mediator.Send(new GetRecommendJobQuery());
+            return Ok(recommendedJobs);
         }
 
     }

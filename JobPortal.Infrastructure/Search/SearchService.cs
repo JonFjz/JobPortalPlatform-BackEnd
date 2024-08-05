@@ -79,5 +79,39 @@ public class SearchService : ISearchService
         var response = await _client.DeleteAsync(ElasticSearchConfiguration.DefaultIndex, id);
         return response.IsValidResponse;
     }
+    
+    public async Task<List<JobPostingDto>> RecommendJobsAsync(JobSeeker jobSeeker)
+    {
+        var skills = jobSeeker.Skills.Select(s => s.Name).ToArray();
+        var experiences = jobSeeker.Experiences.Select(e => e.JobTitle).ToArray();
+        var educations = jobSeeker.Educations.Select(e => e.Degree).ToArray();
+
+        var searchResponse = await _client.SearchAsync<JobPostingDto>(s => s
+            .Index(ElasticSearchConfiguration.DefaultIndex)
+            .Query(q => q
+                .Bool(b => b
+                    .Should(
+                        sh => sh.Match(m => m
+                            .Field(f => f.RequiredSkills)
+                            .Query(string.Join(" ", skills))),
+                        sh => sh.Match(m => m
+                            .Field(f => f.Responsibilities)
+                            .Query(string.Join(" ", experiences))),
+                        sh => sh.Match(m => m
+                            .Field(f => f.Description)
+                            .Query(string.Join(" ", experiences))),
+                        sh => sh.Match(m => m
+                            .Field(f => f.Description)
+                            .Query(string.Join(" ", educations)))
+                    )
+                    .MinimumShouldMatch(1)
+                )
+            )
+            .Size(10)
+        );
+        return searchResponse.IsValidResponse
+            ? searchResponse.Documents.ToList()
+            : new List<JobPostingDto>();
+    }
 
 }

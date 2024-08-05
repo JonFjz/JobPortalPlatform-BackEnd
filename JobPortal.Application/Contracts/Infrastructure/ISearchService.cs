@@ -9,6 +9,7 @@ namespace JobPortal.Application.Contracts.Infrastructure
         Task<bool> Index(JobPostingDto jobPosting);
         Task<bool> UpdateEntry(JobPosting jobPosting);
         Task<bool> DeleteEntry(int id);
+        Task<List<JobPostingDto>> RecommendJobsAsync(JobSeeker jobSeeker);
 
     }
 }
