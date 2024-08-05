@@ -92,7 +92,7 @@ namespace JobPortal.API
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("https://34.141.119.232:7136", "http://34.141.119.232:5500", "http://127.0.0.1:5500", "http://localhost:5173","http://job.gjirafalifeproject.life")
+                    builder.WithOrigins("https://34.141.119.232:7136", "http://34.141.119.232:5500", "http://127.0.0.1:5500", "http://localhost:5173","http://job.gjirafalifeproject.life","http://34.159.188.181:8080")
                            .AllowAnyMethod()
                            .AllowAnyHeader()
                            .AllowCredentials();
