@@ -45,8 +45,16 @@ namespace JobPortal.API.Controllers
         [HttpPut("{id}/update-status")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] JobApplicationStatus newStatus)
         {
-            await _mediator.Send(new UpdateJobApplicationStatusCommand{JobApplicationId = id, NewStatus = newStatus});
-            return NoContent();
+            try
+            {
+                await _mediator.Send(new UpdateJobApplicationStatusCommand { JobApplicationId = id, NewStatus = newStatus });
+                return NoContent();
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
 

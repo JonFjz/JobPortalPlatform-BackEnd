@@ -2,6 +2,7 @@
 using JobPortal.Application.Contracts.Persistence;
 using JobPortal.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobPortal.Application.Features.JobApplications.Command.UpdateJobApplicationStatus
 {
@@ -19,8 +20,11 @@ namespace JobPortal.Application.Features.JobApplications.Command.UpdateJobApplic
         public async Task Handle(UpdateJobApplicationStatusCommand request, CancellationToken cancellationToken)
         {
             var employer = await _claimsPrincipalAccessor.GetCurrentEmployerAsync();
-            
-            var jobApplication = await _unitOfWork.Repository<JobApplication>().GetByIdAsync(e => e.Id == request.JobApplicationId);
+
+            var jobApplication = await _unitOfWork.Repository<JobApplication>()
+                .GetByCondition(e => e.Id == request.JobApplicationId)
+                .Include(x => x.JobPosting).FirstOrDefaultAsync();
+                
 
             if (jobApplication == null)
             {
