@@ -38,7 +38,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("bookmarked-jobs")]
-        [Cached(600)]
+       // [Cached(600)]
         public async Task<IActionResult> GetBookmarkedJobs()
         {
             var bookmarkedJobs = await _mediator.Send(new GetBookmarkedJobsQuery());

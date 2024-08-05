@@ -45,7 +45,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("employer/{employerId}")]
-        [Cached(1200)]
+        //[Cached(1200)]
         public async Task<IActionResult> GetAll([FromRoute]int employerId,[FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var reviews = await _mediator.Send(new GetAllReviewQuery(employerId,pageNumber,pageSize));

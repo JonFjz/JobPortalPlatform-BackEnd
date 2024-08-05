@@ -24,7 +24,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("by-industry")]
-        [Cached(600)]
+       // [Cached(600)]
         public async Task<IActionResult> GetEmployersByIndustry([FromQuery] Industry industry, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var employersByIndustry = await _mediator.Send(new GetEmployersByIndustryQuery(industry, pageNumber, pageSize));
@@ -48,7 +48,7 @@ namespace JobPortal.API.Controllers
 
         [Authorize(Policy = "JobSeeker")]
         [HttpGet("{employerId}")]
-        [Cached(600)]
+      //  [Cached(600)]
         public async Task<IActionResult> GetEmployerById(int employerId)
         {
             try

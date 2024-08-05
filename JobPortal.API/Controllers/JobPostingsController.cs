@@ -47,7 +47,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("{id}")]
-        [Cached(600)]
+       // [Cached(600)]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var jobPosting = await _mediator.Send(new GetJobPostingByIdQuery(id));
@@ -56,7 +56,7 @@ namespace JobPortal.API.Controllers
 
 
         [HttpGet("by-employer/{employerId}")]
-        [Cached(300)]
+       // [Cached(300)]
         public async Task<IActionResult> GetJobPostingsByEmployer(int employerId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var jobPostingsByEmployer = await _mediator.Send(new GetJobPostingsByEmployerIdQuery(employerId, pageNumber, pageSize));
@@ -66,7 +66,7 @@ namespace JobPortal.API.Controllers
 
         [Authorize(Policy = "Employer")]
         [HttpGet("my-premium-job-postings")]
-        [Cached(300)]
+       // [Cached(300)]
         public async Task<IActionResult> GetMyPremiumJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
 
@@ -77,7 +77,7 @@ namespace JobPortal.API.Controllers
 
         [Authorize(Policy = "Employer")]
         [HttpGet("my-job-postings")]
-        [Cached(300)]
+        //[Cached(300)]
         public async Task<IActionResult> GetMyJobPostings([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var jobPostings = await _mediator.Send(new GetMyJobPostingQuery(pageNumber, pageSize));
